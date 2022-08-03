@@ -3,28 +3,27 @@ import 'package:gpsd/pages/account.dart';
 import 'package:gpsd/pages/homeButtons.dart';
 import 'package:gpsd/pages/homeButtonsV2.dart';
 import 'package:gpsd/pages/Navbar.dart';
-import 'package:gpsd/pages/qrcode.dart';
-import 'package:gpsd/pages/settings.dart';
+import 'package:gpsd/pages/homePage.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key}) : super(key: key);
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _SettingsPageState extends State<SettingsPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //endDrawer: Navbar(),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         toolbarHeight: 80,
         elevation: 0,
         backgroundColor: Colors.grey[300],
         titleSpacing: 25,
         title: Text(
-          'My Card',
+          'Settings',
           style: TextStyle(
             fontSize: 25,
             color: Colors.black,
@@ -109,21 +108,18 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const homebuttonsV2(
-                  iconImagePath: 'lib/icons/children.png',
-                  buttonText: 'Children',
-                  page: QRPage(),
-                ),
-                const homebuttonsV2(
-                  iconImagePath: 'lib/icons/qr.png',
-                  buttonText: 'QR Code',
-                  page: QRPage(),
-                ),
-                const homebuttonsV2(
-                  iconImagePath: 'lib/icons/map.png',
-                  buttonText: 'Map',
-                  page: QRPage(),
-                ),
+                // const homebuttonsV2(
+                //   iconImagePath: 'lib/icons/children.png',
+                //   buttonText: 'Children',
+                // ),
+                // const homebuttonsV2(
+                //   iconImagePath: 'lib/icons/qr.png',
+                //   buttonText: 'QR Code',
+                // ),
+                // const homebuttonsV2(
+                //   iconImagePath: 'lib/icons/map.png',
+                //   buttonText: 'Map',
+                // ),
               ],
             ),
             const SizedBox(

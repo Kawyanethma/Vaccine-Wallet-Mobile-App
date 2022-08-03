@@ -1,30 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:gpsd/main.dart';
 import 'package:gpsd/pages/account.dart';
 import 'package:gpsd/pages/homeButtons.dart';
 import 'package:gpsd/pages/homeButtonsV2.dart';
 import 'package:gpsd/pages/Navbar.dart';
-import 'package:gpsd/pages/qrcode.dart';
-import 'package:gpsd/pages/settings.dart';
+import 'package:gpsd/pages/homePage.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class QRPage extends StatefulWidget {
+  const QRPage({Key? key}) : super(key: key);
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<QRPage> createState() => _QRPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _QRPageState extends State<QRPage> {
+  int index = 2;
+  final screens = [
+    AccountPage(),
+    HomePage(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //endDrawer: Navbar(),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        leading: 
+           Builder(builder: (context) {
+             return IconButton(
+               onPressed: () {
+                Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MyApp()));
+               },
+               padding: EdgeInsets.only(left: 20.0),
+               icon: Icon(
+                 Icons.arrow_back_ios,
+                 color: Colors.black,
+                 size: 35,
+               ),
+             );
+           }),
         toolbarHeight: 80,
         elevation: 0,
         backgroundColor: Colors.grey[300],
         titleSpacing: 25,
         title: Text(
-          'My Card',
+          'QR Code',
           style: TextStyle(
             fontSize: 25,
             color: Colors.black,
@@ -109,21 +128,18 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const homebuttonsV2(
-                  iconImagePath: 'lib/icons/children.png',
-                  buttonText: 'Children',
-                  page: QRPage(),
-                ),
-                const homebuttonsV2(
-                  iconImagePath: 'lib/icons/qr.png',
-                  buttonText: 'QR Code',
-                  page: QRPage(),
-                ),
-                const homebuttonsV2(
-                  iconImagePath: 'lib/icons/map.png',
-                  buttonText: 'Map',
-                  page: QRPage(),
-                ),
+                // const homebuttonsV2(
+                //   iconImagePath: 'lib/icons/children.png',
+                //   buttonText: 'Children',
+                // ),
+                // const homebuttonsV2(
+                //   iconImagePath: 'lib/icons/qr.png',
+                //   buttonText: 'QR Code',
+                // ),
+                // const homebuttonsV2(
+                //   iconImagePath: 'lib/icons/map.png',
+                //   buttonText: 'Map',
+                // ),
               ],
             ),
             const SizedBox(
