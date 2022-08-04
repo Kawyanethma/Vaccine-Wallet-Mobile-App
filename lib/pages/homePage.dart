@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gpsd/pages/account.dart';
 import 'package:gpsd/pages/homeButtons.dart';
 import 'package:gpsd/pages/homeButtonsV2.dart';
-import 'package:gpsd/pages/Navbar.dart';
 import 'package:gpsd/pages/qrcode.dart';
-import 'package:gpsd/pages/settings.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,39 +15,25 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       //endDrawer: Navbar(),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        toolbarHeight: 80,
+        toolbarHeight: 90,
         elevation: 0,
         backgroundColor: Colors.grey[300],
         titleSpacing: 25,
-        title: Text(
+        title: const Text(
           'My Card',
           style: TextStyle(
-            fontSize: 25,
+            fontSize: 30,
             color: Colors.black,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w500,
           ),
         ),
-        // actions: [
-        //   Builder(builder: (context) {
-        //     return IconButton(
-        //       onPressed: () => Scaffold.of(context).openEndDrawer(),
-        //       padding: EdgeInsets.only(right: 35.0),
-        //       icon: Icon(
-        //         Icons.menu,
-        //         color: Colors.black,
-        //         size: 35,
-        //       ),
-        //     );
-        //   }),
-        // ]
       ),
       backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 1.0, vertical: 1.0),
           child: Column(children: [
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             //card
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -66,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                       blurRadius: 10,
                     ),
                   ],
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [
                       Color.fromARGB(255, 36, 139, 199),
                       Color.fromARGB(255, 34, 34, 34),
@@ -95,11 +78,10 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(color: Colors.white, fontSize: 15)),
                   const Text('', style: TextStyle(fontSize: 22)),
                   Row(
-                    children: [
-                      const Text('Next Vaccine : ',
+                    children: const [
+                      Text('Next Vaccine : ',
                           style: TextStyle(color: Colors.white)),
-                      const Text('09/22',
-                          style: TextStyle(color: Colors.white)),
+                      Text('09/22', style: TextStyle(color: Colors.white)),
                     ],
                   )
                 ]),
@@ -108,18 +90,18 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const homebuttonsV2(
+              children: const [
+                homebuttonsV2(
                   iconImagePath: 'lib/icons/children.png',
                   buttonText: 'Children',
                   page: QRPage(),
                 ),
-                const homebuttonsV2(
+                homebuttonsV2(
                   iconImagePath: 'lib/icons/qr.png',
                   buttonText: 'QR Code',
                   page: QRPage(),
                 ),
-                const homebuttonsV2(
+                homebuttonsV2(
                   iconImagePath: 'lib/icons/map.png',
                   buttonText: 'Map',
                   page: QRPage(),
@@ -127,22 +109,20 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const SizedBox(
-              height: 40,
+              height: 30,
             ),
 
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(children: const [
-                  homebuttons(
+                  Homebuttons(
                       iconImagePath1: 'lib/icons/vaccination.png',
-                      iconImagePath2: 'lib/icons/next.png',
                       buttonText: 'Vaccination History'),
                   SizedBox(
                     height: 20,
                   ),
-                  homebuttons(
+                  Homebuttons(
                       iconImagePath1: 'lib/icons/vaccine.png',
-                      iconImagePath2: 'lib/icons/next.png',
                       buttonText: 'Next Vaccines'),
                 ])),
             const SizedBox(

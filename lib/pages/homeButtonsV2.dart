@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:animations/animations.dart';
+import 'package:gpsd/pages/homePage.dart';
 
 class homebuttonsV2 extends StatelessWidget {
   final String iconImagePath;
@@ -15,12 +17,14 @@ class homebuttonsV2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        //icon
+       children: [
         InkWell(
           onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => page));
+            Navigator.of(context).push(
+               MaterialPageRoute(
+                  builder: (context) => page,
+                )
+            );
           },
           child: Ink(
             child: Container(
@@ -31,14 +35,14 @@ class homebuttonsV2 extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(-15, -15),
+                    offset: Offset(-6, -6),
                     color: Colors.white,
-                    blurRadius: 20,
+                    blurRadius: 10,
                   ),
                   BoxShadow(
-                    offset: Offset(15, 15),
+                    offset: Offset(6, 6),
                     color: Color(0xFFA7A9AF),
-                    blurRadius: 20,
+                    blurRadius: 10,
                   ),
                 ],
               ),

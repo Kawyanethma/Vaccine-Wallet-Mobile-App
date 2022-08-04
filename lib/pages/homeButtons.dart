@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-class homebuttons extends StatelessWidget {
+class Homebuttons extends StatelessWidget {
   final String iconImagePath1;
-  final String iconImagePath2;
   final String buttonText;
 
-  const homebuttons({
+  const Homebuttons({
     Key? key,
     required this.iconImagePath1,
-    required this.iconImagePath2,
     required this.buttonText,
   }) : super(key: key);
 
@@ -21,41 +19,42 @@ class homebuttons extends StatelessWidget {
           onTap: () {
             print("Container clicked");
           },
-        child: Ink(
-        child: Container(
-          height: 80,
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(60),
-            //border: Border.all(color: Colors.black),
-             boxShadow: [
-               BoxShadow(
-                 offset: Offset(-15, -15),
-                 color: Colors.white,
-                 blurRadius: 30,
-               ),
-               BoxShadow(
-                 offset: Offset(15, 15),
-                 color: Color(0xFFA7A9AF),
-                 blurRadius: 30,
-               ),
-             ],
+          child: Ink(
+            child: Container(
+              height: 80,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(60),
+                boxShadow: const [
+                  BoxShadow(
+                    offset: Offset(-6, -6),
+                    color: Colors.white,
+                    blurRadius: 10,
+                  ),
+                  BoxShadow(
+                    offset: Offset(6, 6),
+                    color: Color(0xFFA7A9AF),
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(iconImagePath1),
+                  Text(buttonText,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      )),
+                  Image.asset('lib/icons/next.png'),
+                ],
+              ),
+            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(iconImagePath1),
-              Text(buttonText,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 19, 55, 87),
-                  )),
-              Image.asset(iconImagePath2),
-            ],
-          ),
-        ),),),
+        ),
       ],
     );
   }

@@ -13,39 +13,28 @@ class QRPage extends StatefulWidget {
 }
 
 class _QRPageState extends State<QRPage> {
-  int index = 2;
-  final screens = [
-    AccountPage(),
-    HomePage(),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //endDrawer: Navbar(),
       appBar: AppBar(
-        leading: 
-           Builder(builder: (context) {
-             return IconButton(
-               onPressed: () {
-                Navigator.push(
-                context, MaterialPageRoute(builder: (context) => MyApp()));
-               },
-               padding: EdgeInsets.only(left: 20.0),
-               icon: Icon(
-                 Icons.arrow_back_ios,
-                 color: Colors.black,
-                 size: 35,
-               ),
-             );
-           }),
+        leading: Builder(builder: (context) {
+          return IconButton(
+            onPressed: () => Navigator.pop(context,true),
+            padding: EdgeInsets.only(left: 20.0),
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+          );
+        }),
         toolbarHeight: 80,
         elevation: 0,
         backgroundColor: Colors.grey[300],
-        titleSpacing: 25,
         title: Text(
           'QR Code',
           style: TextStyle(
-            fontSize: 25,
+            fontSize: 22,
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
@@ -149,16 +138,14 @@ class _QRPageState extends State<QRPage> {
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(children: const [
-                  homebuttons(
+                  Homebuttons(
                       iconImagePath1: 'lib/icons/vaccination.png',
-                      iconImagePath2: 'lib/icons/next.png',
                       buttonText: 'Vaccination History'),
                   SizedBox(
                     height: 20,
                   ),
-                  homebuttons(
+                  Homebuttons(
                       iconImagePath1: 'lib/icons/vaccine.png',
-                      iconImagePath2: 'lib/icons/next.png',
                       buttonText: 'Next Vaccines'),
                 ])),
             const SizedBox(
