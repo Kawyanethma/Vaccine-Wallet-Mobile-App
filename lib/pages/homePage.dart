@@ -13,7 +13,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //endDrawer: Navbar(),
       appBar: AppBar(
         toolbarHeight: 90,
         elevation: 0,
@@ -87,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                 ]),
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 28),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
@@ -109,7 +108,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const SizedBox(
-              height: 30,
+              height: 27,
             ),
 
             Padding(

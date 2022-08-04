@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gpsd/main.dart';
 import 'package:gpsd/pages/account.dart';
+import 'package:gpsd/animation/animationUp.dart';
 import 'package:gpsd/pages/homeButtons.dart';
 import 'package:gpsd/pages/homeButtonsV2.dart';
 import 'package:gpsd/pages/Navbar.dart';
@@ -16,13 +17,12 @@ class _QRPageState extends State<QRPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //endDrawer: Navbar(),
       appBar: AppBar(
         leading: Builder(builder: (context) {
           return IconButton(
             onPressed: () => Navigator.pop(context,true),
-            padding: EdgeInsets.only(left: 20.0),
-            icon: Icon(
+            padding: const EdgeInsets.only(left: 20.0),
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
             ),
@@ -31,7 +31,7 @@ class _QRPageState extends State<QRPage> {
         toolbarHeight: 80,
         elevation: 0,
         backgroundColor: Colors.grey[300],
-        title: Text(
+        title: const Text(
           'QR Code',
           style: TextStyle(
             fontSize: 22,
@@ -39,19 +39,7 @@ class _QRPageState extends State<QRPage> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        // actions: [
-        //   Builder(builder: (context) {
-        //     return IconButton(
-        //       onPressed: () => Scaffold.of(context).openEndDrawer(),
-        //       padding: EdgeInsets.only(right: 35.0),
-        //       icon: Icon(
-        //         Icons.menu,
-        //         color: Colors.black,
-        //         size: 35,
-        //       ),
-        //     );
-        //   }),
-        // ]
+       
       ),
       backgroundColor: Colors.grey[300],
       body: SafeArea(
@@ -74,7 +62,7 @@ class _QRPageState extends State<QRPage> {
                       blurRadius: 10,
                     ),
                   ],
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [
                       Color.fromARGB(255, 36, 139, 199),
                       Color.fromARGB(255, 34, 34, 34),
@@ -103,10 +91,10 @@ class _QRPageState extends State<QRPage> {
                       style: TextStyle(color: Colors.white, fontSize: 15)),
                   const Text('', style: TextStyle(fontSize: 22)),
                   Row(
-                    children: [
-                      const Text('Next Vaccine : ',
+                    children: const [
+                      Text('Next Vaccine : ',
                           style: TextStyle(color: Colors.white)),
-                      const Text('09/22',
+                      Text('09/22',
                           style: TextStyle(color: Colors.white)),
                     ],
                   )
@@ -114,26 +102,6 @@ class _QRPageState extends State<QRPage> {
               ),
             ),
             const SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                // const homebuttonsV2(
-                //   iconImagePath: 'lib/icons/children.png',
-                //   buttonText: 'Children',
-                // ),
-                // const homebuttonsV2(
-                //   iconImagePath: 'lib/icons/qr.png',
-                //   buttonText: 'QR Code',
-                // ),
-                // const homebuttonsV2(
-                //   iconImagePath: 'lib/icons/map.png',
-                //   buttonText: 'Map',
-                // ),
-              ],
-            ),
-            const SizedBox(
-              height: 40,
-            ),
 
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),

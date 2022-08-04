@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
             )),
             child: NavigationBar(
                 backgroundColor: Colors.grey[250],
-                elevation: 10,
+                elevation: 40,
                 height: 60,
                 labelBehavior:
                     NavigationDestinationLabelBehavior.onlyShowSelected,

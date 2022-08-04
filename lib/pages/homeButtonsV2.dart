@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:animations/animations.dart';
-import 'package:gpsd/pages/homePage.dart';
+
+import '../animation/animationUp.dart';
 
 class homebuttonsV2 extends StatelessWidget {
   final String iconImagePath;
@@ -17,14 +17,12 @@ class homebuttonsV2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-       children: [
+      children: [
         InkWell(
           onTap: () {
-            Navigator.of(context).push(
-               MaterialPageRoute(
-                  builder: (context) => page,
-                )
-            );
+            Navigator.push(
+                context,
+                MyAnimationUp(page: page));
           },
           child: Ink(
             child: Container(
@@ -33,7 +31,7 @@ class homebuttonsV2 extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     offset: Offset(-6, -6),
                     color: Colors.white,
@@ -51,13 +49,13 @@ class homebuttonsV2 extends StatelessWidget {
           ),
         ),
         //to get gap
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         //text
         Text(
           buttonText,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
             color: Color.fromARGB(255, 0, 0, 0),
