@@ -113,16 +113,18 @@ class _HomePageState extends State<HomePage> {
 
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(children: const [
+                child: Column(children:  const [
                   Homebuttons(
                       iconImagePath1: 'lib/icons/vaccination.png',
-                      buttonText: 'Vaccination History'),
+                      buttonText: 'Vaccination History', 
+                      page: QRPage(),),
                   SizedBox(
                     height: 20,
                   ),
                   Homebuttons(
                       iconImagePath1: 'lib/icons/vaccine.png',
-                      buttonText: 'Next Vaccines'),
+                      buttonText: 'Next Vaccines',
+                      page: QRPage(),),
                 ])),
             const SizedBox(
               height: 25,

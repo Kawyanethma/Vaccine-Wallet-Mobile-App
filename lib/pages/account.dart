@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:gpsd/pages/homePage.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:gpsd/pages/qrcode.dart';
 import 'HomeButtons.dart';
-import '../animation/animationUp.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -13,15 +9,6 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  File? image;
-  Future pickImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image == null) return;
-
-    final imageTemporary = File(image.path);
-    this.image = imageTemporary;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,11 +41,11 @@ class _AccountPageState extends State<AccountPage> {
                     )),
                     InkWell(
                       onTap: () {
-                        pickImage();
+                        
                       },
                       child: const CircleAvatar(
                         radius: 45,
-                        backgroundImage: AssetImage('lib/icons/user1.png'),
+                        backgroundImage: AssetImage('lib/icons/user.png'),
                         backgroundColor: Colors.lightGreen,
                       ),
                     ),
@@ -91,17 +78,19 @@ class _AccountPageState extends State<AccountPage> {
                 const SizedBox(
                   height: 40,
                 ),
-                Column(children: const [
+                Column(children:  [
                   Homebuttons(
                       iconImagePath1: 'lib/icons/email.png',
-                      buttonText: 'Change Email'),
-                  SizedBox(
+                      buttonText: 'Change Email',
+                      page: const QRPage(),),
+                  const SizedBox(
                     height: 25,
                   ),
                   Homebuttons(
-                      iconImagePath1: 'lib/icons/password.png',
-                      buttonText: 'Change Password'),
-                  SizedBox(
+                       iconImagePath1: 'lib/icons/password.png',
+                      buttonText: 'Change Password',
+                      page: const QRPage(),),
+                  const SizedBox(
                     height: 30,
                   ),
                 ]),

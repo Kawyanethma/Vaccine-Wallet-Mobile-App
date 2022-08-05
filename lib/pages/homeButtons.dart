@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:gpsd/animation/animationSlide.dart';
 
 class Homebuttons extends StatelessWidget {
   final String iconImagePath1;
   final String buttonText;
+  final StatefulWidget page;
 
-  const Homebuttons({
+  const Homebuttons ({
     Key? key,
     required this.iconImagePath1,
     required this.buttonText,
+    required this.page,
   }) : super(key: key);
 
   @override
@@ -17,7 +20,7 @@ class Homebuttons extends StatelessWidget {
         //icon
         InkWell(
           onTap: () {
-            print("Container clicked");
+            Navigator.push(context, MyAnimationSlide(page: page));
           },
           child: Ink(
             child: Container(

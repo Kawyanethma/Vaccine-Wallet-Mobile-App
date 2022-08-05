@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:gpsd/pages/about.dart';
+import 'package:gpsd/pages/notifications.dart';
+import 'package:gpsd/pages/qrcode.dart';
 import 'HomeButtons.dart';
+import 'location.dart';
+
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -30,22 +34,25 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
-            Column(children: const [
+            Column(children:  [
                   Homebuttons(
                       iconImagePath1: 'lib/icons/notification.png',
-                      buttonText: 'Notifications'),
-                  SizedBox(
+                      buttonText: 'Notifications',
+                      page: const Notification_settings(),),
+                  const SizedBox(
                     height: 30,
                   ),
                   Homebuttons(
                       iconImagePath1: 'lib/icons/location.png',
-                      buttonText: 'Location'),
-                  SizedBox(
+                      buttonText: 'Location',
+                      page: const Location_settings(),),
+                  const SizedBox(
                     height: 30,
                   ),
                   Homebuttons(
                       iconImagePath1: 'lib/icons/info.png',
-                      buttonText: 'About'),
+                      buttonText: 'About',
+                      page: const About_settings(),),
                 ]),
           ]),
         ));

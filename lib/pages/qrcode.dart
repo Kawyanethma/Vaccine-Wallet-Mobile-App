@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpsd/main.dart';
-import 'package:gpsd/pages/account.dart';
-import 'package:gpsd/animation/animationUp.dart';
 import 'package:gpsd/pages/homeButtons.dart';
-import 'package:gpsd/pages/homeButtonsV2.dart';
-import 'package:gpsd/pages/Navbar.dart';
-import 'package:gpsd/pages/homePage.dart';
 
 class QRPage extends StatefulWidget {
   const QRPage({Key? key}) : super(key: key);
@@ -105,16 +100,18 @@ class _QRPageState extends State<QRPage> {
 
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Column(children: const [
+                child: Column(children:  [
                   Homebuttons(
                       iconImagePath1: 'lib/icons/vaccination.png',
-                      buttonText: 'Vaccination History'),
-                  SizedBox(
+                      buttonText: 'Vaccination History',
+                      page: const QRPage(),),
+                  const SizedBox(
                     height: 20,
                   ),
                   Homebuttons(
                       iconImagePath1: 'lib/icons/vaccine.png',
-                      buttonText: 'Next Vaccines'),
+                      buttonText: 'Next Vaccines',
+                      page: const QRPage(),),
                 ])),
             const SizedBox(
               height: 25,
