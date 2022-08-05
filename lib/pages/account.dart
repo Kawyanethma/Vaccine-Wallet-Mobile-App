@@ -60,7 +60,7 @@ class _AccountPageState extends State<AccountPage> {
                     const SizedBox(
                       height: 7,
                     ),
-                    const Text('ID Number: 200016903099',
+                    const Text('ID Number: 200*********',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 15,
@@ -78,19 +78,19 @@ class _AccountPageState extends State<AccountPage> {
                 const SizedBox(
                   height: 40,
                 ),
-                Column(children:  [
+                Column(children:  const [
                   Homebuttons(
                       iconImagePath1: 'lib/icons/email.png',
                       buttonText: 'Change Email',
-                      page: const QRPage(),),
-                  const SizedBox(
+                      page: QRPage(),),
+                  SizedBox(
                     height: 25,
                   ),
                   Homebuttons(
                        iconImagePath1: 'lib/icons/password.png',
                       buttonText: 'Change Password',
-                      page: const QRPage(),),
-                  const SizedBox(
+                      page: QRPage(),),
+                  SizedBox(
                     height: 30,
                   ),
                 ]),
