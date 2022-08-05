@@ -68,7 +68,7 @@ class _AccountPageState extends State<AccountPage> {
                     const SizedBox(
                       height: 7,
                     ),
-                    const Text('Email: Kawyanethma@gmail.com',
+                    const Text('Mobile: 1234567891',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 15,
