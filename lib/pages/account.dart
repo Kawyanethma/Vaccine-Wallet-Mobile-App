@@ -40,9 +40,7 @@ class _AccountPageState extends State<AccountPage> {
                       horizontal: 1.0,
                     )),
                     InkWell(
-                      onTap: () {
-                        
-                      },
+                      onTap: () {},
                       child: const CircleAvatar(
                         radius: 45,
                         backgroundImage: AssetImage('lib/icons/user.png'),
@@ -78,18 +76,20 @@ class _AccountPageState extends State<AccountPage> {
                 const SizedBox(
                   height: 40,
                 ),
-                Column(children:  const [
+                Column(children: const [
                   Homebuttons(
-                      iconImagePath1: 'lib/icons/email.png',
-                      buttonText: 'Change Email',
-                      page: QRPage(),),
+                    iconImagePath1: 'lib/icons/phone.png',
+                    buttonText: 'Change phone number',
+                    page: QRPage(),
+                  ),
                   SizedBox(
                     height: 25,
                   ),
                   Homebuttons(
-                       iconImagePath1: 'lib/icons/password.png',
-                      buttonText: 'Change Password',
-                      page: QRPage(),),
+                    iconImagePath1: 'lib/icons/password.png',
+                    buttonText: 'Change Password',
+                    page: QRPage(),
+                  ),
                   SizedBox(
                     height: 30,
                   ),

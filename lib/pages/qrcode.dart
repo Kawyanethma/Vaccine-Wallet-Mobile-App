@@ -26,22 +26,25 @@ class _QRPageState extends State<QRPage> {
         toolbarHeight: 80,
         elevation: 0,
         backgroundColor: Colors.grey[300],
-        title: const Text(
-          'QR Code',
-          style: TextStyle(
-            fontSize: 22,
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-       
       ),
       backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 1.0, vertical: 1.0),
           child: Column(children: [
-            const SizedBox(height: 10),
+            Row(children: const [
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 34.0, vertical: 30.0),
+                  child: Text('QR Code',
+                  style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                ),
+               ),
+              ),
+            ],),
+            const SizedBox(height: 20),
             //card
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -49,7 +52,7 @@ class _QRPageState extends State<QRPage> {
                 width: 350,
                 height: 200,
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 15.0, vertical: 15.0),
+                    horizontal: 20.0, vertical: 20.0),
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -59,65 +62,74 @@ class _QRPageState extends State<QRPage> {
                   ],
                   gradient: const LinearGradient(
                     colors: [
-                      Color.fromARGB(255, 36, 139, 199),
-                      Color.fromARGB(255, 34, 34, 34),
+                      Color.fromARGB(255, 26, 109, 161),
+                      Color.fromARGB(255, 55, 55, 55),                  
                     ],
                   ),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Column(children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset('lib/icons/Slgov.png', height: 50),
-                      const Text(
-                        'Vaccine Card',
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 255, 255, 255),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22),
-                      )
-                    ],
-                  ),
-                  const Text('', style: TextStyle(fontSize: 20)),
-                  const Text('W.M.K Walisundara',
-                      style: TextStyle(color: Colors.white, fontSize: 25)),
-                  const Text('Age : 22',
-                      style: TextStyle(color: Colors.white, fontSize: 15)),
-                  const Text('', style: TextStyle(fontSize: 22)),
-                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: const [
-                      Text('Next Vaccine : ',
-                          style: TextStyle(color: Colors.white)),
-                      Text('09/22',
-                          style: TextStyle(color: Colors.white)),
-                    ],
-                  )
+                    Text('Scan Me',
+                    style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+              ),
+              ),
+           ],),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset('lib/icons/qrcode.png', height: 120),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children:  const [
+                    SizedBox(height: 80),
+                    Text('Next Vaccine:  \t',
+                      style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                ),
+                ),
+                Text('No vaccine to get',
+                      style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                ),
+                ),
+              ],),
+              ],
+            ),
                 ]),
               ),
             ),
-            const SizedBox(height: 30),
-
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Column(children:  [
-                  Homebuttons(
-                      iconImagePath1: 'lib/icons/vaccination.png',
-                      buttonText: 'Vaccination History',
-                      page: const QRPage(),),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Homebuttons(
-                      iconImagePath1: 'lib/icons/vaccine.png',
-                      buttonText: 'Next Vaccines',
-                      page: const QRPage(),),
-                ])),
-            const SizedBox(
-              height: 25,
+              padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 30),
+              child:Column(
+              children: const [
+              Icon(
+              Icons.info_outline_rounded,
+              size: 80,
+              color: Colors.red,
+              ),
+              SizedBox(height: 15),
+              Text('Show QR code to medical officer, then they can know about your vaccine deatils.\n*If QR code not clear tap on it to zoom it.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          ]),
-        ),
+         ]),
+      ),
+      ]),
+      ),
       ),
     );
   }

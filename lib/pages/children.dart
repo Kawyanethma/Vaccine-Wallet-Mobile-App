@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class About_settings extends StatefulWidget {
-  const About_settings({Key? key}) : super(key: key);
+class ChildrenPage extends StatefulWidget {
+  const ChildrenPage({Key? key}) : super(key: key);
   @override
-  State<About_settings> createState() => _About_settingsState();
+  State<ChildrenPage> createState() => _ChildrenPageState();
 }
 
-class _About_settingsState extends State<About_settings> {
+class _ChildrenPageState extends State<ChildrenPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +38,7 @@ class _About_settingsState extends State<About_settings> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 5.0, vertical: 25.0),
                       child: Text(
-                        'About',
+                        'Children',
                         style: TextStyle(
                             fontSize: 35,
                             color: Colors.black,
@@ -50,17 +51,17 @@ class _About_settingsState extends State<About_settings> {
                   height: 100,
                 ),
                 const Icon(
-                  Icons.perm_device_information_rounded,
-                  color: Colors.blue,
+                  Icons.add_circle,
+                  color: Colors.grey,
                   size: 80,
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 const Text(
-                  "Vaccine Wallet 1.0v",
+                  "Add children",
                   style: TextStyle(
-                      fontSize: 17,
+                      fontSize: 19,
                       color: Colors.black87,
                       fontWeight: FontWeight.w500),
                 ),
@@ -68,12 +69,12 @@ class _About_settingsState extends State<About_settings> {
                   height: 12,
                 ),
                 const Text(
-                  "Get a digital copy of your vaccine card. Just enter a few details below to get a link to a QR code. Save it on your phone and use it as proof of vaccination wherever you go.If you are a parent or guardian and have multiple vaccine records associated with a single mobile number or ID Number, enter each digital vaccine record request separately.",
+                  "No children to show.You can add your children to your account using add button.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 17,
                       color: Colors.black54,
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.w500),
                 ),
               ]),
             ),

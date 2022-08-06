@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gpsd/pages/children.dart';
 import 'package:gpsd/pages/homeButtons.dart';
 import 'package:gpsd/pages/homeButtonsV2.dart';
 import 'package:gpsd/pages/qrcode.dart';
@@ -50,8 +51,8 @@ class _HomePageState extends State<HomePage> {
                   ],
                   gradient: const LinearGradient(
                     colors: [
-                      Color.fromARGB(255, 36, 139, 199),
-                      Color.fromARGB(255, 34, 34, 34),
+                      Color.fromARGB(255, 55, 55, 55),
+                      Color.fromARGB(255, 26, 109, 161),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(16),
@@ -93,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                 homebuttonsV2(
                   iconImagePath: 'lib/icons/children.png',
                   buttonText: 'Children',
-                  page: QRPage(),
+                  page: ChildrenPage(),
                 ),
                 homebuttonsV2(
                   iconImagePath: 'lib/icons/qr.png',

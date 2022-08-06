@@ -5,7 +5,7 @@ class MyAnimationUp extends PageRouteBuilder {
 
   MyAnimationUp({required this.page})
       : super(
-            transitionDuration: const Duration(milliseconds: 500),
+            transitionDuration: const Duration(milliseconds: 1000),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               animation = CurvedAnimation(

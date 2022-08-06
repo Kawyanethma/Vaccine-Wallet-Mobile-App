@@ -48,7 +48,7 @@ class Homebuttons extends StatelessWidget {
                   Image.asset(iconImagePath1),
                   Text(buttonText,
                       style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
                       )),

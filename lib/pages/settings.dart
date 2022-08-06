@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpsd/pages/about.dart';
 import 'package:gpsd/pages/notifications.dart';
-import 'package:gpsd/pages/qrcode.dart';
 import 'HomeButtons.dart';
 import 'location.dart';
 
@@ -13,6 +12,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,25 +34,25 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
-            Column(children:  [
+            Column(children:  const [
                   Homebuttons(
                       iconImagePath1: 'lib/icons/notification.png',
                       buttonText: 'Notifications',
-                      page: const Notification_settings(),),
-                  const SizedBox(
+                      page: Notification_settings(),),
+                  SizedBox(
                     height: 30,
                   ),
                   Homebuttons(
                       iconImagePath1: 'lib/icons/location.png',
                       buttonText: 'Location',
-                      page: const Location_settings(),),
-                  const SizedBox(
+                      page: Location_settings(),),
+                  SizedBox(
                     height: 30,
                   ),
                   Homebuttons(
                       iconImagePath1: 'lib/icons/info.png',
                       buttonText: 'About',
-                      page: const About_settings(),),
+                      page: About_settings(),),
                 ]),
           ]),
         ));

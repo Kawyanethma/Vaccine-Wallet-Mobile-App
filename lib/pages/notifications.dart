@@ -29,85 +29,87 @@ class _Notification_settingsState extends State<Notification_settings> {
         ),
         backgroundColor: Colors.grey[300],
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(children: [
-              Row(
-                children: const [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.0, vertical: 25.0),
-                    child: Text(
-                      'Notifications',
-                      style: TextStyle(
-                          fontSize: 35,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Container(
-                height: 60,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: value
-                      ? const Color.fromARGB(255, 180, 210, 245)
-                      : const Color.fromARGB(255, 187, 194, 250),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'App notifications',
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(children: [
+                Row(
+                  children: const [
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.0, vertical: 25.0),
+                      child: Text(
+                        'Notifications',
                         style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 35,
                             color: Colors.black,
                             fontWeight: FontWeight.w400),
                       ),
-                      Column(children: [
-                        const SizedBox(height: 6),
-                        buildHeader(child: buildSwitch()),
-                      ])
-                    ]),
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              Icon(
-                value
-                    ? Icons.notifications_on_rounded
-                    : Icons.notifications_off_rounded,
-                color:value? Colors.green : Colors.red,
-                size: 80,
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Text(
-                value ? "Notifications are on.":"Notifications are off.",
-                style: const TextStyle(
-                    fontSize: 17,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Text(
-                value ? "You will recive notifications if you have new vaccine to get.":"Trun on notifications to get details about new vaccines.",
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontSize: 17,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w400),
-              ),
-            ]),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  height: 60,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: value
+                        ? const Color.fromARGB(255, 180, 210, 245)
+                        : const Color.fromARGB(255, 187, 194, 250),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Push notifications',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        Column(children: [
+                          const SizedBox(height: 6),
+                          buildHeader(child: buildSwitch()),
+                        ])
+                      ]),
+                ),
+                const SizedBox(
+                  height: 80,
+                ),
+                Icon(
+                  value
+                      ? Icons.notifications_on_rounded
+                      : Icons.notifications_off_rounded,
+                  color:value? Colors.green : Colors.red,
+                  size: 80,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Text(
+                  value ? "Notifications are on.":"Notifications are off.",
+                  style: const TextStyle(
+                      fontSize: 17,
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w400),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Text(
+                  value ? "You will recive notifications if you have new vaccine to get.":"Trun on notifications to get details about new vaccines.",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 17,
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w400),
+                ),
+              ]),
+            ),
           ),
         ));
   }
@@ -123,12 +125,12 @@ class _Notification_settingsState extends State<Notification_settings> {
       );
 
   Widget buildSwitch() => Transform.scale(
-        scale: 1.5,
+        scale: 1.3,
         child: Switch.adaptive(
-          activeColor: Color.fromARGB(255, 219, 232, 255),
-          activeTrackColor: Color.fromARGB(255, 13, 112, 193),
-          inactiveThumbColor: Color.fromARGB(255, 195, 195, 195),
-          inactiveTrackColor: Color.fromARGB(255, 109, 105, 105),
+          activeColor: const Color.fromARGB(255, 219, 232, 255),
+          activeTrackColor: const Color.fromARGB(255, 13, 112, 193),
+          inactiveThumbColor: const Color.fromARGB(255, 195, 195, 195),
+          inactiveTrackColor: const Color.fromARGB(255, 109, 105, 105),
           splashRadius: 30,
           value: value,
           onChanged: (value) => setState(() => this.value = value),
