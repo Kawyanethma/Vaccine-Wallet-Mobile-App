@@ -4,6 +4,8 @@ import 'package:gpsd/pages/homeButtons.dart';
 import 'package:gpsd/pages/homeButtonsV2.dart';
 import 'package:gpsd/pages/qrcode.dart';
 
+import 'maps.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
   @override
@@ -104,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                 homebuttonsV2(
                   iconImagePath: 'lib/icons/map.png',
                   buttonText: 'Map',
-                  page: QRPage(),
+                  page: MapsPage(),
                 ),
               ],
             ),

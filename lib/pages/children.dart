@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gpsd/pages/qrcode.dart';
 
 class ChildrenPage extends StatefulWidget {
   const ChildrenPage({Key? key}) : super(key: key);
@@ -31,27 +32,27 @@ class _ChildrenPageState extends State<ChildrenPage> {
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(24),
-              child: Column(children: [
-                Row(
-                  children: const [
+              child: Column(children:  [
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 5.0, vertical: 25.0),
-                      child: Text(
-                        'Children',
-                        style: TextStyle(
-                            fontSize: 35,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                  ],
-                ),
+                          const EdgeInsets.symmetric(horizontal: 5.0, vertical: 25.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children:  const [
+                          Text('Children',
+                          style: TextStyle(
+                              fontSize: 35,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400),
+                        ),
+               ]),
+              ),
+              
                 const SizedBox(
                   height: 100,
                 ),
                 const Icon(
-                  Icons.add_circle,
+                  Icons.no_accounts_outlined,
                   color: Colors.grey,
                   size: 80,
                 ),
@@ -59,7 +60,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
                   height: 20,
                 ),
                 const Text(
-                  "Add children",
+                  "No accounts found",
                   style: TextStyle(
                       fontSize: 19,
                       color: Colors.black87,
@@ -69,7 +70,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
                   height: 12,
                 ),
                 const Text(
-                  "No children to show.You can add your children to your account using add button.",
+                  "No children to show.If you have link your child details to acoount those are show here.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 17,
