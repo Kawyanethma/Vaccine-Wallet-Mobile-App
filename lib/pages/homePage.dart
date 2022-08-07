@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gpsd/pages/children.dart';
 import 'package:gpsd/pages/homeButtons.dart';
 import 'package:gpsd/pages/homeButtonsV2.dart';
+import 'package:gpsd/pages/nextVaccine.dart';
 import 'package:gpsd/pages/qrcode.dart';
+import 'package:gpsd/pages/vaccineHistory.dart';
 
 import 'maps.dart';
 
@@ -119,15 +121,15 @@ class _HomePageState extends State<HomePage> {
                 child: Column(children:  const [
                   Homebuttons(
                       iconImagePath1: 'lib/icons/vaccination.png',
-                      buttonText: 'Vaccination History', 
-                      page: QRPage(),),
+                      buttonText: 'Vaccine Histroy', 
+                      page:VaccineHistroy(),),
                   SizedBox(
                     height: 20,
                   ),
                   Homebuttons(
                       iconImagePath1: 'lib/icons/vaccine.png',
                       buttonText: 'Next Vaccines',
-                      page: QRPage(),),
+                      page: NextVaccine(),),
                 ])),
             const SizedBox(
               height: 25,

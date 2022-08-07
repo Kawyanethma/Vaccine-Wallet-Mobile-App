@@ -50,7 +50,7 @@ class _About_settingsState extends State<About_settings> {
                   height: 100,
                 ),
                 const Icon(
-                  Icons.perm_device_information_rounded,
+                  Icons.info_outline_rounded,
                   color: Colors.blue,
                   size: 80,
                 ),

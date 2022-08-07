@@ -37,7 +37,7 @@ class _QRPageState extends State<QRPage> {
                   padding: EdgeInsets.symmetric(horizontal: 34.0, vertical: 30.0),
                   child: Text('QR Code',
                   style: TextStyle(
-                  fontSize: 40,
+                  fontSize: 35,
                   color: Colors.black,
                   fontWeight: FontWeight.w400,
                 ),

@@ -13,7 +13,7 @@ class MapsPage extends StatefulWidget {
 class _MapsPageState extends State<MapsPage> {
   GoogleMapController? mapController; //contrller for Google map
   Set<Marker> markers = Set(); //markers for google map
-  LatLng showLocation = LatLng(27.7089435, 85.3086209); 
+  LatLng showLocation = LatLng(6.92781026181, 79.849936266); 
 
  @override
   void initState() {

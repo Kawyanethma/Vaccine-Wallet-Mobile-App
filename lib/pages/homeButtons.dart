@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gpsd/animation/animationSlide.dart';
 
@@ -19,14 +20,12 @@ class Homebuttons extends StatelessWidget {
       children: [
         //icon
         InkWell(
+          customBorder: StadiumBorder(),
           onTap: () {
             Navigator.push(context, MyAnimationSlide(page: page));
           },
           child: Ink(
-            child: Container(
-              height: 80,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
+            decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(60),
                 boxShadow: const [
@@ -39,16 +38,19 @@ class Homebuttons extends StatelessWidget {
                     offset: Offset(6, 6),
                     color: Color(0xFFA7A9AF),
                     blurRadius: 10,
-                  ),
-                ],
-              ),
+                  ),]
+                ),
+            child: Container(
+              height: 80,
+              padding: const EdgeInsets.all(20),
+              //color: Colors.transparent,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.asset(iconImagePath1),
                   Text(buttonText,
                       style: const TextStyle(
-                        fontSize: 15,
+                        fontSize: 17,
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
                       )),

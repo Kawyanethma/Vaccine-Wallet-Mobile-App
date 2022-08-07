@@ -19,31 +19,30 @@ class homebuttonsV2 extends StatelessWidget {
     return Column(
       children: [
         InkWell(
+          customBorder: const StadiumBorder(),
           onTap: () {
-            Navigator.push(
-                context,
-                MyAnimationUp(page: page));
+            Navigator.push(context, MyAnimationUp(page: page));
           },
           child: Ink(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: const [
+                BoxShadow(
+                  offset: Offset(-6, -6),
+                  color: Colors.white,
+                  blurRadius: 10,
+                ),
+                BoxShadow(
+                  offset: Offset(6, 6),
+                  color: Color(0xFFA7A9AF),
+                  blurRadius: 10,
+                ),
+              ],
+            ),
             child: Container(
               height: 80,
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
-                  BoxShadow(
-                    offset: Offset(-6, -6),
-                    color: Colors.white,
-                    blurRadius: 10,
-                  ),
-                  BoxShadow(
-                    offset: Offset(6, 6),
-                    color: Color(0xFFA7A9AF),
-                    blurRadius: 10,
-                  ),
-                ],
-              ),
               child: Center(child: Image.asset(iconImagePath)),
             ),
           ),
