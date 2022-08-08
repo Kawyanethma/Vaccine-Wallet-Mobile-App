@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/user_preferences.dart';
 
 class Location_settings extends StatefulWidget {
   const Location_settings({Key? key}) : super(key: key);
@@ -9,8 +10,8 @@ class Location_settings extends StatefulWidget {
 }
 
 class _Location_settingsState extends State<Location_settings> {
-  bool value = true;
-  
+  User user = UserPreferences.getUser();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,14 +56,15 @@ class _Location_settingsState extends State<Location_settings> {
                 ),
                 Container(
                   height: 60,
-                  width: 350,
+                  width: double.infinity,
                   decoration: BoxDecoration(
-                    color: value
+                    color: user.isLocation
                         ? const Color.fromARGB(255, 180, 210, 245)
                         : const Color.fromARGB(255, 187, 194, 250),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -73,25 +75,24 @@ class _Location_settingsState extends State<Location_settings> {
                               color: Colors.black,
                               fontWeight: FontWeight.w400),
                         ),
-                        Column(children: [
-                          const SizedBox(height: 6),
-                          buildHeader(child: buildSwitch()),
-                        ])
+                        buildHeader(child: buildSwitch()),
                       ]),
                 ),
                 const SizedBox(
                   height: 80,
                 ),
                 Icon(
-                  value ? Icons.location_on : Icons.location_off,
-                  color: value ? Colors.green : Colors.red,
+                  user.isLocation ? Icons.location_on : Icons.location_off,
+                  color: user.isLocation ? Colors.green : Colors.red,
                   size: 80,
                 ),
                 const SizedBox(
                   height: 40,
                 ),
                 Text(
-                  value ? "Location is using." : "Location is not using.",
+                  user.isLocation
+                      ? "Location is using."
+                      : "Location is not using.",
                   style: const TextStyle(
                       fontSize: 20,
                       color: Colors.black87,
@@ -101,7 +102,7 @@ class _Location_settingsState extends State<Location_settings> {
                   height: 12,
                 ),
                 Text(
-                  value
+                  user.isLocation
                       ? "Location may use like GPS, Wi-Fi to help get your device location.Then we can show the nearest vaccine center."
                       : "Trun on location to see nearest vaccinne center.",
                   textAlign: TextAlign.center,
@@ -131,12 +132,15 @@ class _Location_settingsState extends State<Location_settings> {
         child: Switch.adaptive(
             activeColor: Color.fromARGB(255, 219, 232, 255),
             activeTrackColor: Color.fromARGB(255, 13, 112, 193),
-            inactiveThumbColor: Color.fromARGB(255, 195, 195, 195),
+            inactiveThumbColor: Color.fromARGB(2550, 195, 195, 195),
             inactiveTrackColor: Color.fromARGB(255, 109, 105, 105),
             splashRadius: 30,
-            value: value,
+            value: user.isLocation,
             onChanged: (value) {
-              setState(() => this.value = value);
+              setState(() {
+                user.isLocation = value;
+                UserPreferences.setUser(user);
+              });
             }),
       );
 }

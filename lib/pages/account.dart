@@ -8,6 +8,7 @@ import 'package:gpsd/pages/changePassword.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+import '../utils/user_preferences.dart';
 import 'HomeButtons.dart';
 
 class AccountPage extends StatefulWidget {
@@ -17,39 +18,30 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  File? image;
-
-  Future setimage() async {
-    final img = File('/data/user/0/com.example.gpsd/app_flutter/profile');
-    if (img.existsSync()) {
-      this.image = img;
-      print('have');
-    } else {
-      print('not');
-    }
-  }
+  late User user;
 
   Future pickImage(ImageSource source) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
 
-      final imageTemp = File(image.path);
-      final imagePermanet = await saveImagePermanetly(image.path);
+      final directory = await getApplicationDocumentsDirectory();
+      final name;
+      if (basename(user.imagePath) == 'profile1') {
+        name = 'profile2';
+      } else {
+        name = 'profile1';
+      }
+      final imageFile = File('${directory.path}/$name');
+      final newImage = await File(image.path).copy(imageFile.path);
       setState(() {
-        this.image = imageTemp;
+        user = user.copy(imagePath: newImage.path);
+        UserPreferences.setUser(user);
       });
+      print(user.imagePath);
     } on PlatformException catch (e) {
       print(('Fail to pick iamge: $e'));
     }
-  }
-
-  Future<File> saveImagePermanetly(String imagePath) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final name = 'profile';
-    final image = File('${directory.path}/$name');
-
-    return File(imagePath).copy(image.path);
   }
 
   Future<ImageSource?> showImageSource(BuildContext context) async {
@@ -91,9 +83,9 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   void initState() {
-      super.initState();
-      setimage();
-    }
+    super.initState();
+    user = UserPreferences.getUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,25 +123,32 @@ class _AccountPageState extends State<AccountPage> {
                         if (source == null) return;
                         pickImage(source);
                       },
-                      child: image != null
+                      child: user.imagePath != ''
                           ? Stack(
                               children: [
                                 ClipOval(
-                                    child: Image.file(image!,
-                                        width: 110,
-                                        height: 110,
-                                        fit: BoxFit.cover)),
+                                  child: Material(
+                                      child: Ink.image(
+                                          image:
+                                              FileImage(File(user.imagePath)),
+                                          width: 100,
+                                          height: 100,
+                                          fit: BoxFit.cover)),
+                                ),
                                 Positioned(
                                     bottom: 0,
                                     right: 4,
                                     child: Container(
-                                        padding:  const EdgeInsets.all(5),
-                                        decoration:  BoxDecoration(
+                                        padding: const EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.green,
-                                            border: Border.all(width: 3,color: const Color.fromARGB(255, 224, 224, 224))
-                                            ),
-                                        child: const Icon(Icons.edit, size: 20)))
+                                            border: Border.all(
+                                                width: 4.5,
+                                                color: const Color.fromARGB(
+                                                    255, 224, 224, 224))),
+                                        child: const Icon(Icons.edit,
+                                            size: 20, color: Colors.white)))
                               ],
                             )
                           : const CircleAvatar(

@@ -4,13 +4,15 @@ import 'package:gpsd/pages/account.dart';
 import 'package:gpsd/pages/homePage.dart';
 import 'package:gpsd/pages/settings.dart';
 import 'package:animations/animations.dart';
+import 'package:gpsd/utils/user_preferences.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  await UserPreferences.init();
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),

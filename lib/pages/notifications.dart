@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gpsd/utils/user_preferences.dart';
 
 class Notification_settings extends StatefulWidget {
   const Notification_settings({Key? key}) : super(key: key);
@@ -7,7 +8,7 @@ class Notification_settings extends StatefulWidget {
 }
 
 class _Notification_settingsState extends State<Notification_settings> {
-  bool value = true;
+  User user = UserPreferences.getUser();
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +54,14 @@ class _Notification_settingsState extends State<Notification_settings> {
                 ),
                 Container(
                   height: 60,
-                  width: 350,
+                  width: double.infinity,
                   decoration: BoxDecoration(
-                    color: value
+                    color: user.isNotifications
                         ? const Color.fromARGB(255, 180, 210, 245)
                         : const Color.fromARGB(255, 187, 194, 250),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(vertical:6,horizontal: 20),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -71,27 +72,27 @@ class _Notification_settingsState extends State<Notification_settings> {
                               color: Colors.black,
                               fontWeight: FontWeight.w400),
                         ),
-                        Column(children: [
-                          const SizedBox(height: 6),
                           buildHeader(child: buildSwitch()),
-                        ])
+                        
                       ]),
                 ),
                 const SizedBox(
                   height: 80,
                 ),
                 Icon(
-                  value
+                  user.isNotifications
                       ? Icons.notifications_on_rounded
                       : Icons.notifications_off_rounded,
-                  color:value? Colors.green : Colors.red,
+                  color: user.isNotifications ? Colors.green : Colors.red,
                   size: 80,
                 ),
                 const SizedBox(
                   height: 40,
                 ),
                 Text(
-                  value ? "Notifications are on.":"Notifications are off.",
+                  user.isNotifications
+                      ? "Notifications are on."
+                      : "Notifications are off.",
                   style: const TextStyle(
                       fontSize: 17,
                       color: Colors.black87,
@@ -101,7 +102,9 @@ class _Notification_settingsState extends State<Notification_settings> {
                   height: 12,
                 ),
                 Text(
-                  value ? "You will recive notifications if you have new vaccine to get.":"Trun on notifications to get details about new vaccines.",
+                  user.isNotifications
+                      ? "You will recive notifications if you have new vaccine to get."
+                      : "Trun on notifications to get details about new vaccines.",
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontSize: 17,
@@ -132,8 +135,11 @@ class _Notification_settingsState extends State<Notification_settings> {
           inactiveThumbColor: const Color.fromARGB(255, 195, 195, 195),
           inactiveTrackColor: const Color.fromARGB(255, 109, 105, 105),
           splashRadius: 30,
-          value: value,
-          onChanged: (value) => setState(() => this.value = value),
+          value: user.isNotifications,
+          onChanged: (value) => setState(() {
+            user = user.copy(isNotifications: value);
+            UserPreferences.setUser(user);    
+          }),
         ),
       );
 }

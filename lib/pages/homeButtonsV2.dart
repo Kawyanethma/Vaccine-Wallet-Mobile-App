@@ -19,7 +19,7 @@ class homebuttonsV2 extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          customBorder: const StadiumBorder(),
+          customBorder: StadiumBorder(),
           onTap: () {
             Navigator.push(context, MyAnimationUp(page: page));
           },
