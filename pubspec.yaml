@@ -42,6 +42,16 @@ dependencies:
 
 
 dev_dependencies:
+
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/logo_foreground.png"
+
   flutter_test:
     sdk: flutter
 

@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gpsd/pages/changeMobile.dart';
-import 'package:gpsd/pages/changePassword.dart';
+import 'package:gpsd/utils/user_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
-import '../utils/user_preferences.dart';
-import 'HomeButtons.dart';
+
+import 'package:gpsd/pages/account/changeMobile.dart';
+import 'package:gpsd/pages/account/changePassword.dart';
+import 'package:gpsd/utils/homeButtons.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   late User user;
 
-  Future pickImage(ImageSource source) async {
+  Future pickImage(ImageSource source, BuildContext context) async {
     try {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
@@ -38,6 +39,7 @@ class _AccountPageState extends State<AccountPage> {
         user = user.copy(imagePath: newImage.path);
         UserPreferences.setUser(user);
       });
+      showTextSnackBar(context, 'Profile picture updated');
       print(user.imagePath);
     } on PlatformException catch (e) {
       print(('Fail to pick iamge: $e'));
@@ -48,16 +50,17 @@ class _AccountPageState extends State<AccountPage> {
     if (Platform.isIOS) {
       return showCupertinoModalPopup(
           context: context,
-          builder: (context) => CupertinoActionSheet(actions: [
+          builder: (context) => CupertinoActionSheet(
+            actions: [
                 CupertinoActionSheetAction(
                     child: Text('Camera'),
                     onPressed: () {
-                      pickImage(ImageSource.camera);
+                      pickImage(ImageSource.camera, context);
                     }),
                 CupertinoActionSheetAction(
                     child: Text('Gallery'),
                     onPressed: () {
-                      pickImage(ImageSource.gallery);
+                      pickImage(ImageSource.gallery, context);
                     }),
               ]));
     } else {
@@ -67,12 +70,12 @@ class _AccountPageState extends State<AccountPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ListTile(
-                      leading: Icon(Icons.camera_alt),
+                      leading: Icon(Icons.camera_alt,color: Colors.deepOrange,),
                       title: Text('Camera'),
                       onTap: () =>
                           Navigator.of(context).pop(ImageSource.camera)),
                   ListTile(
-                      leading: Icon(Icons.photo),
+                      leading: Icon(Icons.photo,color: Colors.green,),
                       title: Text('Gallery'),
                       onTap: () =>
                           Navigator.of(context).pop(ImageSource.gallery))
@@ -121,7 +124,7 @@ class _AccountPageState extends State<AccountPage> {
                       onTap: () async {
                         final source = await showImageSource(context);
                         if (source == null) return;
-                        pickImage(source);
+                        pickImage(source, context);
                       },
                       child: user.imagePath != ''
                           ? Stack(
@@ -210,4 +213,23 @@ class _AccountPageState extends State<AccountPage> {
               ])),
         ));
   }
+}
+
+void showTextSnackBar(BuildContext context, String text) {
+  final snackBar = SnackBar(
+    duration: Duration(seconds: 3),
+    content: Row(
+      children: [
+        Text(
+          text + '  \t',
+          style: TextStyle(fontSize: 16),
+        ),
+        Icon(
+          Icons.done,
+          color: Colors.white,
+        ),
+      ],
+    ),
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

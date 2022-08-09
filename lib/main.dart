@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gpsd/pages/account.dart';
-import 'package:gpsd/pages/homePage.dart';
-import 'package:gpsd/pages/settings.dart';
+
 import 'package:animations/animations.dart';
+import 'package:gpsd/pages/account/account.dart';
+import 'package:gpsd/pages/home/homePage.dart';
+import 'package:gpsd/pages/settings/settings.dart';
 import 'package:gpsd/utils/user_preferences.dart';
 
 Future<void> main() async {

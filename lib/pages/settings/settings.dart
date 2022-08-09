@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gpsd/pages/about.dart';
-import 'package:gpsd/pages/notifications.dart';
-import 'HomeButtons.dart';
+import 'package:gpsd/utils/homeButtons.dart';
+
+import 'about.dart';
 import 'location.dart';
+import 'notifications.dart';
 
 
 class SettingsPage extends StatefulWidget {

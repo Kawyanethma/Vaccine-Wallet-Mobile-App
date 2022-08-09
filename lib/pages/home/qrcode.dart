@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gpsd/main.dart';
-import 'package:gpsd/pages/homeButtons.dart';
+
 
 class QRPage extends StatefulWidget {
   const QRPage({Key? key}) : super(key: key);
@@ -13,16 +13,18 @@ class _QRPageState extends State<QRPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Builder(builder: (context) {
-          return IconButton(
-            onPressed: () => Navigator.pop(context,true),
-            padding: const EdgeInsets.only(left: 20.0),
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            ),
-          );
-        }),
+       leading: Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: Builder(builder: (context) {
+            return IconButton(
+              onPressed: () => Navigator.pop(context,true),
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              ),
+            );
+          }),
+        ),
         toolbarHeight: 80,
         elevation: 0,
         backgroundColor: Colors.grey[300],
