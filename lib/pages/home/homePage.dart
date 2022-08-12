@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gpsd/animation/animationUp.dart';
+import 'package:gpsd/main.dart';
 import 'package:gpsd/utils/homeButtons.dart';
 import 'package:gpsd/utils/homeButtonsV2.dart';
 
@@ -18,13 +20,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
-
-//main
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 90,
         elevation: 0,
         actions: [
@@ -162,7 +162,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   //methods
 
   Future showLogout(BuildContext context) async {
@@ -187,7 +186,9 @@ class _HomePageState extends State<HomePage> {
     } else {
       return showModalBottomSheet(
           context: context,
-          builder: (context) => Padding(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          builder: (context) => Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 child: Column(
@@ -195,20 +196,22 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Text(
                       'Are you sure you want to logout?',
+                      textAlign: TextAlign.center,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(height: 15),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 100, vertical: 5),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width / 4,
+                          vertical: 5),
                       child: MaterialButton(
+                        height: 40,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        color: Colors.red,
-                        elevation: 20,
+                        color: Color.fromARGB(255, 189, 21, 21),
                         onPressed: (() {
-                          Navigator.pop(context, true);
+                          Navigator.pushNamed(context, AppRoutes.);
                         }),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -225,13 +228,14 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 100, vertical: 5),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width / 4,
+                          vertical: 5),
                       child: MaterialButton(
+                        height: 40,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        color: Colors.blue,
-                        elevation: 20,
+                        color: Color.fromARGB(255, 20, 115, 174),
                         onPressed: (() {
                           Navigator.pop(context, true);
                         }),

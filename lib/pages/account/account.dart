@@ -66,6 +66,8 @@ class _AccountPageState extends State<AccountPage> {
     } else {
       return showModalBottomSheet(
           context: context,
+          shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
           builder: (context) => Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
