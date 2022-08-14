@@ -15,7 +15,7 @@ enum ButtonState { init, loading, done }
 class _LoginPageState extends State<LoginPage> {
   ButtonState state = ButtonState.init;
   bool isAnimating = true;
-  final emailController = TextEditingController();
+  final mobileController = TextEditingController();
   final passwordController = TextEditingController();
   String Password = '';
   bool isPasswordVisble = true;
@@ -81,9 +81,17 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 40),
                 ]),
-                makeMobileTextField(),
+                Theme(
+                    data: Theme.of(context).copyWith(
+                        colorScheme: ColorScheme.light(
+                            primary: Color.fromARGB(255, 27, 110, 178))),
+                    child: makeMobileTextField()),
                 SizedBox(height: 30),
-                makePasswordTextField(),
+                Theme(
+                    data: Theme.of(context).copyWith(
+                        colorScheme: ColorScheme.light(
+                            primary: Color.fromARGB(255, 27, 110, 178))),
+                    child: makePasswordTextField()),
                 SizedBox(height: 40),
                 Hero(
                     transitionOnUserGestures: true,
@@ -109,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget makeMobileTextField() => TextField(
-        controller: emailController,
+        controller: mobileController,
         decoration: InputDecoration(
             hintText: '071 234 5678',
             labelText: 'Mobile',
@@ -123,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
         // autofocus: true,
       );
 
-  Widget makePasswordTextField({lable, obscureText = false}) => TextField(
+  Widget makePasswordTextField() => TextField(
         controller: passwordController,
         decoration: InputDecoration(
           hintText: 'Enter your password',
@@ -138,11 +146,11 @@ class _LoginPageState extends State<LoginPage> {
                   icon: isPasswordVisble
                       ? Icon(
                           Icons.visibility_off_rounded,
-                          color: Colors.green,
+                          color: Color.fromARGB(255, 51, 172, 55),
                         )
                       : Icon(
                           Icons.visibility,
-                          color: Colors.red,
+                          color: Color.fromARGB(255, 196, 47, 36),
                         ),
                   onPressed: () =>
                       setState(() => isPasswordVisble = !isPasswordVisble),

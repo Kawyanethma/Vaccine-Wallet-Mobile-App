@@ -87,21 +87,25 @@ class _MyAppState extends State<MyApp> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    MaterialButton(
-                      elevation: 0,
-                      minWidth: double.infinity,
-                      height: 60,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      color: Color.fromARGB(255, 27, 110, 178),
-                      child: Text('Sign Up',
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500)),
-                      onPressed: (() => Navigator.push(
-                          context, MyAnimationSlide(page: SignUpPage()))),
-                    ),
+                    Hero(
+                        transitionOnUserGestures: true,
+                        tag: 'signup',
+                        child: MaterialButton(
+                          elevation: 0,
+                          minWidth: double.infinity,
+                          height: 60,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          color: Color.fromARGB(255, 27, 110, 178),
+                          child: Text('Sign Up',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500)),
+                          onPressed: (() => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => SignUpPage()))),
+                        )),
                   ],
                 )
               ],
