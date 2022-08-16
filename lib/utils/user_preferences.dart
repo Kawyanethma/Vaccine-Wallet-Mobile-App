@@ -8,9 +8,9 @@ class UserPreferences {
   static const _keyUser = 'user';
   static var myUser = User(
     imagePath: '',
-    name: 'Kawyanthma Walisundara',
+    name: 'Kawyanethma Walisundara',
     id: '20002314020123',
-    mobile: '07112345678',
+    mobile: '0701234567',
     isLocation: false,
     isNotifications: false,
   );
@@ -33,10 +33,10 @@ class UserPreferences {
 // user calss
 
 class User {
-  final String imagePath;
-  final String name;
-  final String id;
-  final String mobile;
+  String imagePath;
+  String name;
+  String id;
+  String mobile;
   bool isLocation;
   bool isNotifications;
 
@@ -66,21 +66,21 @@ class User {
         isNotifications: isNotifications ?? this.isNotifications,
       );
 
-  static User fromJson(Map<String,dynamic> json) => User(
-    imagePath: json['imagePath'],
-    name: json['name'],
-    id: json['id'],
-    mobile: json['mobile'],
-    isLocation: json['isLocation'],
-    isNotifications: json['isNotifications'],
-  );
+  static User fromJson(Map<String, dynamic> json) => User(
+        imagePath: json['imagePath'],
+        name: json['name'],
+        id: json['id'],
+        mobile: json['mobile'],
+        isLocation: json['isLocation'],
+        isNotifications: json['isNotifications'],
+      );
 
   Map<String, dynamic> toJson() => {
-    'imagePath': imagePath,
-    'name': name,
-    'id': id,
-    'mobile': mobile,
-    'isLocation': isLocation,
-    'isNotifications': isNotifications,
+        'imagePath': imagePath,
+        'name': name,
+        'id': id,
+        'mobile': mobile,
+        'isLocation': isLocation,
+        'isNotifications': isNotifications,
       };
 }
