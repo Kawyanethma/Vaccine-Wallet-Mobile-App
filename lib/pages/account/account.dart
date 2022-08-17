@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
-import 'package:gpsd/pages/account/changeMobile.dart';
+import 'package:gpsd/pages/account/changeEmaildart';
 import 'package:gpsd/pages/account/changePassword.dart';
 import 'package:gpsd/utils/homeButtons.dart';
 

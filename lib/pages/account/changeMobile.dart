@@ -104,7 +104,7 @@ class _ChangeMobileState extends State<ChangeMobile> {
                             makePhoneTextField(),
                             SizedBox(height: 20),
                             makePasswordTextField(),
-                            SizedBox(height: 20),
+                            SizedBox(height: 40),
                             AnimatedContainer(
                               duration: Duration(milliseconds: 300),
                               curve: Curves.easeIn,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gpsd/main.dart';
+import 'package:gpsd/utils/user_preferences.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class QRPage extends StatefulWidget {
   const QRPage({Key? key}) : super(key: key);
@@ -8,6 +10,7 @@ class QRPage extends StatefulWidget {
 }
 
 class _QRPageState extends State<QRPage> {
+  User user = UserPreferences.getUser();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,11 +94,16 @@ class _QRPageState extends State<QRPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       InkWell(
-                          onTap: () {
-                            zoomQR(context);
-                          },
-                          child:
-                              Image.asset('lib/icons/qrcode.png', height: 120)),
+                        onTap: () {
+                          zoomQR(context);
+                        },
+                        child: QrImage(
+                          data: user.id,
+                          version: QrVersions.auto,
+                          size: 120.0,
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: const [
@@ -162,10 +170,10 @@ class _QRPageState extends State<QRPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(height: 30),
-                  Image.asset(
-                    'lib/icons/qrcode.png',
-                    height: 300,
-                    width: 300,
+                  QrImage(
+                    data: user.id,
+                    version: QrVersions.auto,
+                    size: 300.0,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
