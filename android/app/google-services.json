@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "690462553077",
+    "project_id": "gpsd-3b169",
+    "storage_bucket": "gpsd-3b169.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690462553077:android:e8edcd6b0e8011d1c266bc",
+        "android_client_info": {
+          "package_name": "com.example.gpsd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "690462553077-un1akq0atl4uj5714c625o3j8rbaaumi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFgUhE0UCmESSbZSB0CRbkugvUSdwaB58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "690462553077-un1akq0atl4uj5714c625o3j8rbaaumi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

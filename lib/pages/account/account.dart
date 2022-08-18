@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gpsd/pages/account/changeMobile.dart';
 import 'package:gpsd/utils/user_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
-import 'package:gpsd/pages/account/changeEmaildart';
 import 'package:gpsd/pages/account/changePassword.dart';
 import 'package:gpsd/utils/homeButtons.dart';
 
@@ -50,8 +50,7 @@ class _AccountPageState extends State<AccountPage> {
     if (Platform.isIOS) {
       return showCupertinoModalPopup(
           context: context,
-          builder: (context) => CupertinoActionSheet(
-            actions: [
+          builder: (context) => CupertinoActionSheet(actions: [
                 CupertinoActionSheetAction(
                     child: Text('Camera'),
                     onPressed: () {
@@ -66,18 +65,24 @@ class _AccountPageState extends State<AccountPage> {
     } else {
       return showModalBottomSheet(
           context: context,
-          shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           builder: (context) => Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ListTile(
-                      leading: Icon(Icons.camera_alt,color: Colors.deepOrange,),
+                      leading: Icon(
+                        Icons.camera_alt,
+                        color: Colors.deepOrange,
+                      ),
                       title: Text('Camera'),
                       onTap: () =>
                           Navigator.of(context).pop(ImageSource.camera)),
                   ListTile(
-                      leading: Icon(Icons.photo,color: Colors.green,),
+                      leading: Icon(
+                        Icons.photo,
+                        color: Colors.green,
+                      ),
                       title: Text('Gallery'),
                       onTap: () =>
                           Navigator.of(context).pop(ImageSource.gallery))

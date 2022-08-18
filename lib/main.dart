@@ -3,12 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:gpsd/loginScreen.dart';
 import 'package:gpsd/signUp.dart';
 import 'package:gpsd/utils/user_preferences.dart';
-
-import 'animation/animationSlide.dart';
-import 'appMain.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

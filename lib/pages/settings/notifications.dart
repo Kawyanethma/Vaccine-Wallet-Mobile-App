@@ -15,17 +15,17 @@ class _Notification_settingsState extends State<Notification_settings> {
     return Scaffold(
         appBar: AppBar(
           leading: Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Builder(builder: (context) {
-            return IconButton(
-              onPressed: () => Navigator.pop(context,true),
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-            );
-          }),
-        ),
+            padding: const EdgeInsets.only(left: 20.0),
+            child: Builder(builder: (context) {
+              return IconButton(
+                onPressed: () => Navigator.pop(context, true),
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                ),
+              );
+            }),
+          ),
           toolbarHeight: 80,
           elevation: 0,
           backgroundColor: Colors.grey[300],
@@ -63,7 +63,8 @@ class _Notification_settingsState extends State<Notification_settings> {
                         : const Color.fromARGB(255, 187, 194, 250),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical:6,horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -74,8 +75,7 @@ class _Notification_settingsState extends State<Notification_settings> {
                               color: Colors.black,
                               fontWeight: FontWeight.w400),
                         ),
-                          buildHeader(child: buildSwitch()),
-                        
+                        buildHeader(child: buildSwitch()),
                       ]),
                 ),
                 const SizedBox(
@@ -140,7 +140,7 @@ class _Notification_settingsState extends State<Notification_settings> {
           value: user.isNotifications,
           onChanged: (value) => setState(() {
             user = user.copy(isNotifications: value);
-            UserPreferences.setUser(user);    
+            UserPreferences.setUser(user);
           }),
         ),
       );

@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gpsd/animation/animationUp.dart';
 
 import 'package:gpsd/appMain.dart';
+import 'package:gpsd/utils/user_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -177,12 +179,40 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: () async {
           print(state.toString());
           setState(() => state = ButtonState.loading);
-          await Future.delayed(Duration(seconds: 2));
-          setState(() => state = ButtonState.done);
-          await Future.delayed(Duration(seconds: 1));
-          Navigator.push(context, MyAnimationUp(page: AppMain()));
+          // await Future.delayed(Duration(seconds: 2));
+          if (mobileController.text.isNotEmpty) {
+            readUserFromFireBase();
+          } else {
+            setState(() => state = ButtonState.init);
+          }
         },
       );
+
+  Future readUserFromFireBase() async {
+    final docUser = FirebaseFirestore.instance
+        .collection('users')
+        .doc(mobileController.text);
+    final snapshot = await docUser.get();
+    User user = UserPreferences.getUser();
+    if (snapshot.exists) {
+      print(state);
+      await UserPreferences.setUser(User.fromJson(snapshot.data()!));
+      user = UserPreferences.getUser();
+      print(user.password);
+      if (passwordController.text.trim() == user.password) {
+        print(user.password);
+        setState(() => state = ButtonState.done);
+        Navigator.push(context, MyAnimationUp(page: AppMain()));
+      }
+      print(user.password);
+      setState(() => state = ButtonState.init);
+    } else {
+      setState(() => state = ButtonState.init);
+    }
+    user = user.copy(password: '');
+    UserPreferences.setUser(user);
+    print(user.password);
+  }
 }
 
 Widget bulidLoadingButton(bool isDone) {

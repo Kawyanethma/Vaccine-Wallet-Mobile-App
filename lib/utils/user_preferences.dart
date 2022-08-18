@@ -7,6 +7,7 @@ class UserPreferences {
 
   static const _keyUser = 'user';
   static var myUser = User(
+    password: '',
     imagePath: '',
     name: 'Kawyanethma Walisundara',
     id: '20002314020123',
@@ -33,6 +34,7 @@ class UserPreferences {
 // user calss
 
 class User {
+  String password;
   String imagePath;
   String name;
   String id;
@@ -41,6 +43,7 @@ class User {
   bool isNotifications;
 
   User({
+    required this.password,
     required this.imagePath,
     required this.name,
     required this.id,
@@ -50,6 +53,7 @@ class User {
   });
 
   User copy({
+    String? password,
     String? imagePath,
     String? name,
     String? id,
@@ -58,6 +62,7 @@ class User {
     bool? isNotifications,
   }) =>
       User(
+        password: password ?? this.password,
         imagePath: imagePath ?? this.imagePath,
         name: name ?? this.name,
         id: id ?? this.id,
@@ -67,6 +72,7 @@ class User {
       );
 
   static User fromJson(Map<String, dynamic> json) => User(
+        password: json['password'],
         imagePath: json['imagePath'],
         name: json['name'],
         id: json['id'],
@@ -76,6 +82,7 @@ class User {
       );
 
   Map<String, dynamic> toJson() => {
+        'password': password,
         'imagePath': imagePath,
         'name': name,
         'id': id,
