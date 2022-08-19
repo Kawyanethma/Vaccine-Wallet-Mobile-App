@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gpsd/animation/animationUp.dart';
 
 import 'package:gpsd/appMain.dart';
-import 'package:gpsd/utils/user_preferences.dart';
+import 'package:gpsd/utils/firebase_user_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -122,9 +122,9 @@ class _LoginPageState extends State<LoginPage> {
         controller: mobileController,
         decoration: InputDecoration(
             hintText: '071 234 5678',
-            labelText: 'Mobile',
+            labelText: 'ID number',
             prefixIcon: Icon(
-              Icons.phone_iphone_rounded,
+              Icons.contact_page_rounded,
             ),
             border:
                 UnderlineInputBorder(borderRadius: BorderRadius.circular(15))),
@@ -189,47 +189,50 @@ class _LoginPageState extends State<LoginPage> {
       );
 
   Future readUserFromFireBase() async {
-    final docUser = FirebaseFirestore.instance
-        .collection('users')
-        .doc(mobileController.text);
-    final snapshot = await docUser.get();
-    User user = UserPreferences.getUser();
-    if (snapshot.exists) {
-      print(state);
-      await UserPreferences.setUser(User.fromJson(snapshot.data()!));
-      user = UserPreferences.getUser();
-      print(user.password);
-      if (passwordController.text.trim() == user.password) {
+    try {
+      final docUser = FirebaseFirestore.instance
+          .collection('users')
+          .doc(mobileController.text);
+      final snapshot = await docUser.get();
+      firebaseUser user = firebaseUserPreferences.getfirebaseUser();
+      if (snapshot.exists) {
+        await firebaseUserPreferences
+            .setfirebaseUser(firebaseUser.fromJson(snapshot.data()!));
+        user = firebaseUserPreferences.getfirebaseUser();
         print(user.password);
-        setState(() => state = ButtonState.done);
-        Navigator.push(context, MyAnimationUp(page: AppMain()));
+        if (passwordController.text.trim() == user.password) {
+          print(user.password);
+          setState(() => state = ButtonState.done);
+          Navigator.push(context, MyAnimationUp(page: AppMain()));
+        }
+        print(user.password);
       }
-      print(user.password);
       setState(() => state = ButtonState.init);
-    } else {
+      user = user.copy(password: '');
+      firebaseUserPreferences.setfirebaseUser(user);
+      print(user.password);
+    } on FirebaseException catch (e) {
+      print(e);
       setState(() => state = ButtonState.init);
     }
-    user = user.copy(password: '');
-    UserPreferences.setUser(user);
-    print(user.password);
   }
-}
 
-Widget bulidLoadingButton(bool isDone) {
-  final color = isDone ? Colors.green : Color.fromARGB(255, 50, 50, 50);
-  return Container(
-    padding: EdgeInsets.all(10),
-    decoration: BoxDecoration(shape: BoxShape.circle, color: color),
-    child: Center(
-      child: isDone
-          ? Icon(
-              Icons.done,
-              color: Colors.white,
-              size: 35,
-            )
-          : CircularProgressIndicator(
-              color: Colors.white,
-            ),
-    ),
-  );
+  Widget bulidLoadingButton(bool isDone) {
+    final color = isDone ? Colors.green : Color.fromARGB(255, 50, 50, 50);
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+      child: Center(
+        child: isDone
+            ? Icon(
+                Icons.done,
+                color: Colors.white,
+                size: 35,
+              )
+            : CircularProgressIndicator(
+                color: Colors.white,
+              ),
+      ),
+    );
+  }
 }

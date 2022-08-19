@@ -4,6 +4,7 @@ import 'package:gpsd/loginScreen.dart';
 import 'package:gpsd/signUp.dart';
 import 'package:gpsd/utils/user_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gpsd/utils/firebase_user_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,7 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
   await UserPreferences.init();
+  await firebaseUserPreferences.init();
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
