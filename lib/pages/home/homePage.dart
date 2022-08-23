@@ -6,6 +6,8 @@ import 'package:gpsd/animation/animationUp.dart';
 import 'package:gpsd/main.dart';
 import 'package:gpsd/utils/homeButtons.dart';
 import 'package:gpsd/utils/homeButtonsV2.dart';
+import 'package:gpsd/utils/user_preferences.dart';
+import 'package:gpsd/welcomeScreen.dart';
 
 import 'children.dart';
 import 'maps.dart';
@@ -177,11 +179,16 @@ class _HomePageState extends State<HomePage> {
                           'Logout',
                           style: TextStyle(color: Colors.red),
                         ),
-                        onPressed: () {}),
+                        onPressed: () => setState(() {
+                              User userLocal = UserPreferences.getUser();
+                              userLocal = userLocal.copy(loginState: false);
+                              UserPreferences.setUser(userLocal);
+                              print(userLocal.loginState);
+                            })),
                     CupertinoActionSheetAction(
                         child: Text('Cancel',
                             style: TextStyle(color: Colors.blue)),
-                        onPressed: () {}),
+                        onPressed: () => Navigator.pop(context, true)),
                   ]));
     } else {
       return showModalBottomSheet(
@@ -210,7 +217,19 @@ class _HomePageState extends State<HomePage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         color: Color.fromARGB(255, 189, 21, 21),
-                        onPressed: (() {}),
+                        onPressed: (() {
+                          User userLocal = UserPreferences.getUser();
+                          setState(() {
+                            userLocal = userLocal.copy(loginState: false);
+                            UserPreferences.setUser(userLocal);
+                            print(userLocal.loginState);
+                            Navigator.of(context).popUntil((route) => route.isFirst);
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyApp()));
+                          });
+                        }),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

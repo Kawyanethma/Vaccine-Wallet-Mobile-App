@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:gpsd/animation/animationUp.dart';
 
 import 'package:gpsd/appMain.dart';
+import 'package:gpsd/main.dart';
 import 'package:gpsd/utils/firebase_user_preferences.dart';
+import 'package:gpsd/utils/user_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ enum ButtonState { init, loading, done }
 class _LoginPageState extends State<LoginPage> {
   ButtonState state = ButtonState.init;
   bool isAnimating = true;
-  final mobileController = TextEditingController();
+  final idController = TextEditingController();
   final passwordController = TextEditingController();
   String Password = '';
   bool isPasswordVisble = true;
@@ -87,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                     data: Theme.of(context).copyWith(
                         colorScheme: ColorScheme.light(
                             primary: Color.fromARGB(255, 27, 110, 178))),
-                    child: makeMobileTextField()),
+                    child: makeIdTextField()),
                 SizedBox(height: 30),
                 Theme(
                     data: Theme.of(context).copyWith(
@@ -118,11 +120,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget makeMobileTextField() => TextField(
-        controller: mobileController,
+  Widget makeIdTextField() => TextField(
+        controller: idController,
         decoration: InputDecoration(
-            hintText: '071 234 5678',
-            labelText: 'ID number',
+            hintText: 'Enter your NIC',
+            labelText: 'NIC number',
             prefixIcon: Icon(
               Icons.contact_page_rounded,
             ),
@@ -180,7 +182,8 @@ class _LoginPageState extends State<LoginPage> {
           print(state.toString());
           setState(() => state = ButtonState.loading);
           // await Future.delayed(Duration(seconds: 2));
-          if (mobileController.text.isNotEmpty) {
+          if (idController.text.isNotEmpty &&
+              passwordController.text.isNotEmpty) {
             readUserFromFireBase();
           } else {
             setState(() => state = ButtonState.init);
@@ -190,9 +193,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Future readUserFromFireBase() async {
     try {
-      final docUser = FirebaseFirestore.instance
-          .collection('users')
-          .doc(mobileController.text);
+      final docUser =
+          FirebaseFirestore.instance.collection('users').doc(idController.text);
       final snapshot = await docUser.get();
       firebaseUser user = firebaseUserPreferences.getfirebaseUser();
       if (snapshot.exists) {
@@ -201,13 +203,16 @@ class _LoginPageState extends State<LoginPage> {
         user = firebaseUserPreferences.getfirebaseUser();
         print(user.password);
         if (passwordController.text.trim() == user.password) {
-          print(user.password);
           setState(() => state = ButtonState.done);
-          Navigator.push(context, MyAnimationUp(page: AppMain()));
+          User userLocal = UserPreferences.getUser();
+          userLocal = userLocal.copy(loginState: true);
+          UserPreferences.setUser(userLocal);
+          print(userLocal.loginState);
+          Navigator.of(context).popUntil((route) => route.isFirst);
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MyApp()));
         }
-        print(user.password);
       }
-      setState(() => state = ButtonState.init);
       user = user.copy(password: '');
       firebaseUserPreferences.setfirebaseUser(user);
       print(user.password);

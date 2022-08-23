@@ -14,6 +14,7 @@ class UserPreferences {
     mobile: '0701234567',
     isLocation: false,
     isNotifications: false,
+    loginState: false,
   );
 
   static Future init() async =>
@@ -41,6 +42,7 @@ class User {
   String mobile;
   bool isLocation;
   bool isNotifications;
+  bool loginState;
 
   User({
     required this.password,
@@ -50,6 +52,7 @@ class User {
     required this.mobile,
     required this.isLocation,
     required this.isNotifications,
+    required this.loginState,
   });
 
   User copy({
@@ -60,6 +63,7 @@ class User {
     String? mobile,
     bool? isLocation,
     bool? isNotifications,
+    bool? loginState,
   }) =>
       User(
         password: password ?? this.password,
@@ -69,6 +73,7 @@ class User {
         mobile: mobile ?? this.mobile,
         isLocation: isLocation ?? this.isLocation,
         isNotifications: isNotifications ?? this.isNotifications,
+        loginState: loginState ?? this.loginState,
       );
 
   static User fromJson(Map<String, dynamic> json) => User(
@@ -79,6 +84,7 @@ class User {
         mobile: json['mobile'],
         isLocation: json['isLocation'],
         isNotifications: json['isNotifications'],
+        loginState: json['loginState'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -89,5 +95,6 @@ class User {
         'mobile': mobile,
         'isLocation': isLocation,
         'isNotifications': isNotifications,
+        'loginState': loginState,
       };
 }

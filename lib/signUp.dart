@@ -179,8 +179,8 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget makeIDTextField() => TextFormField(
         controller: idController,
         decoration: InputDecoration(
-            hintText: 'Your ID Number',
-            labelText: 'ID number',
+            hintText: 'Your NIC Number',
+            labelText: 'NIC number',
             prefixIcon: Icon(Icons.contact_page),
             border:
                 UnderlineInputBorder(borderRadius: BorderRadius.circular(15))),
@@ -188,7 +188,7 @@ class _SignUpPageState extends State<SignUpPage> {
           if (value != null && value.length < 10 && value.length > 0) {
             return 'Wrong ID number';
           } else if (idController.text.isEmpty) {
-            return 'Enter ID';
+            return 'Enter NIC';
           } else {
             return null;
           }
