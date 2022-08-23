@@ -17,6 +17,7 @@ class LoginPage extends StatefulWidget {
 enum ButtonState { init, loading, done }
 
 class _LoginPageState extends State<LoginPage> {
+  final formKeyLogin = GlobalKey<FormState>();
   ButtonState state = ButtonState.init;
   bool isAnimating = true;
   final idController = TextEditingController();
@@ -85,11 +86,14 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 40),
                 ]),
-                Theme(
-                    data: Theme.of(context).copyWith(
-                        colorScheme: ColorScheme.light(
-                            primary: Color.fromARGB(255, 27, 110, 178))),
-                    child: makeIdTextField()),
+                Form(
+                  key: formKeyLogin,
+                  child: Theme(
+                      data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                              primary: Color.fromARGB(255, 27, 110, 178))),
+                      child: makeIdTextField()),
+                ),
                 SizedBox(height: 30),
                 Theme(
                     data: Theme.of(context).copyWith(
@@ -120,19 +124,28 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget makeIdTextField() => TextField(
-        controller: idController,
-        decoration: InputDecoration(
-            hintText: 'Enter your NIC',
-            labelText: 'NIC number',
-            prefixIcon: Icon(
-              Icons.contact_page_rounded,
-            ),
-            border:
-                UnderlineInputBorder(borderRadius: BorderRadius.circular(15))),
-        keyboardType: TextInputType.phone,
-        textInputAction: TextInputAction.done,
-        // autofocus: true,
+  Widget makeIdTextField() => TextFormField(
+      controller: idController,
+      decoration: InputDecoration(
+          hintText: 'Enter your NIC',
+          labelText: 'NIC number',
+          prefixIcon: Icon(
+            Icons.contact_page_rounded,
+          ),
+          border:
+              UnderlineInputBorder(borderRadius: BorderRadius.circular(15))),
+      keyboardType: TextInputType.phone,
+      textInputAction: TextInputAction.done,
+      validator: (value) {
+        if (idController.text.isNotEmpty && idController.text.length < 10) {
+          return 'Wrong NIC number';
+        } else if (idController.text.isEmpty) {
+          return 'Enter NIC number';
+        } else {
+          return null;
+        }
+      }
+      // autofocus: true,
       );
 
   Widget makePasswordTextField() => TextField(
@@ -182,6 +195,7 @@ class _LoginPageState extends State<LoginPage> {
           print(state.toString());
           setState(() => state = ButtonState.loading);
           // await Future.delayed(Duration(seconds: 2));
+          formKeyLogin.currentState!.validate();
           if (idController.text.isNotEmpty &&
               passwordController.text.isNotEmpty) {
             readUserFromFireBase();
