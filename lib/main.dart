@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gpsd/appMain.dart';
-import 'package:gpsd/loginScreen.dart';
-import 'package:gpsd/signUp.dart';
 import 'package:gpsd/utils/user_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:gpsd/utils/firebase_user_preferences.dart';
@@ -35,7 +32,6 @@ class _MyAppState extends State<MyApp> {
   User user = UserPreferences.getUser();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     user = UserPreferences.getUser();
   }
