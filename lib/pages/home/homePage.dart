@@ -2,12 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gpsd/animation/animationUp.dart';
 import 'package:gpsd/main.dart';
 import 'package:gpsd/utils/homeButtons.dart';
 import 'package:gpsd/utils/homeButtonsV2.dart';
 import 'package:gpsd/utils/user_preferences.dart';
-import 'package:gpsd/welcomeScreen.dart';
 
 import 'children.dart';
 import 'maps.dart';
@@ -223,7 +221,8 @@ class _HomePageState extends State<HomePage> {
                             userLocal = userLocal.copy(loginState: false);
                             UserPreferences.setUser(userLocal);
                             print(userLocal.loginState);
-                            Navigator.of(context).popUntil((route) => route.isFirst);
+                            Navigator.of(context)
+                                .popUntil((route) => route.isFirst);
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(

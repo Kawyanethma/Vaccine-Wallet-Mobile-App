@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:gpsd/animation/animationUp.dart';
-
-import 'package:gpsd/appMain.dart';
 import 'package:gpsd/main.dart';
 import 'package:gpsd/utils/firebase_user_preferences.dart';
 import 'package:gpsd/utils/user_preferences.dart';

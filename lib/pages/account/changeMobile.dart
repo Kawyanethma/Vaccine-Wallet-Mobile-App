@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gpsd/animation/animationUp.dart';
+
 import 'package:gpsd/utils/user_preferences.dart';
 
 class ChangeMobile extends StatefulWidget {
