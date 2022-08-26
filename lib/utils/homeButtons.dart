@@ -17,7 +17,6 @@ class Homebuttons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        //icon
         InkWell(
           customBorder: StadiumBorder(),
           onTap: () {
