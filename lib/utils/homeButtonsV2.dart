@@ -31,7 +31,7 @@ class homebuttonsV2 extends StatelessWidget {
                 BoxShadow(
                   offset: Offset(-6, -6),
                   color: Colors.white,
-                  blurRadius: 10,
+                  blurRadius: 10, 
                 ),
                 BoxShadow(
                   offset: Offset(6, 6),

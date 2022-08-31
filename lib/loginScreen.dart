@@ -222,6 +222,8 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.of(context).popUntil((route) => route.isFirst);
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MyApp()));
+        }else{
+           setState(() => state = ButtonState.init);
         }
       }
       user = user.copy(password: '');
