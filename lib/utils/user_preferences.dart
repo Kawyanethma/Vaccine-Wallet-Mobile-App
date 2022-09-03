@@ -7,8 +7,8 @@ class UserPreferences {
 
   static const _keyUser = 'user';
   static var myUser = User(
-    password: '',
-    imagePath: '',
+    password: '123',
+    imagePath: '12',
     name: 'Kawyanethma Walisundara',
     id: '20002314020123',
     mobile: '0701234567',

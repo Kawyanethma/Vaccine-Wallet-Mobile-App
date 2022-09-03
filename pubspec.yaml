@@ -42,6 +42,7 @@ dependencies:
   qr_flutter: ^4.0.0
   cloud_firestore: ^3.4.4
   firebase_core: ^1.20.1
+  geolocator: ^9.0.1
 
 dev_dependencies:
 

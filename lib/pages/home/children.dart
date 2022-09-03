@@ -13,21 +13,69 @@ class _ChildrenPageState extends State<ChildrenPage> {
   final user = firebaseUserPreferences.getfirebaseUser();
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: StreamBuilder<List<Children>>(
-          stream: readChildren(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Center(child: Text('data error ${snapshot.error}'));
-            } else if (snapshot.hasData) {
-              final childrenData = snapshot.data!;
-              return ListView(
-                children: childrenData.map(buildChildren).toList(),
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: Builder(builder: (context) {
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 25,
+                  ),
+                  IconButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               );
-            } else {
-              print(' ');
-              return Center(child: CircularProgressIndicator());
-            }
-          },
+            }),
+          ),
+          toolbarHeight: 100,
+          elevation: 0,
+          backgroundColor: Colors.grey[300],
+        ),
+        backgroundColor: Colors.grey[300],
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                child: Text(
+                  'Children',
+                  style: TextStyle(
+                      fontSize: 35,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
+              Container(
+                height: 300, // change to get device height
+                width: double.infinity,
+                padding: EdgeInsets.all(20),
+                child: StreamBuilder<List<Children>>(
+                  stream: readChildren(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                          child: Text('data error ${snapshot.error}'));
+                    } else if (snapshot.hasData) {
+                      final childrenData = snapshot.data!;
+                      return ListView(
+                        children: childrenData.map(buildChildren).toList(),
+                      );
+                    } else {
+                      print(' ');
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       );
 
@@ -44,4 +92,23 @@ class _ChildrenPageState extends State<ChildrenPage> {
         title: Text(children.name),
         subtitle: Text(children.id.toString()),
       );
+
+  void showTextSnackBar(BuildContext context, String text) {
+    final snackBar = SnackBar(
+      duration: Duration(seconds: 3),
+      content: Row(
+        children: [
+          Text(
+            text + '  \t',
+            style: TextStyle(fontSize: 16),
+          ),
+          Icon(
+            Icons.done,
+            color: Colors.white,
+          ),
+        ],
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 }

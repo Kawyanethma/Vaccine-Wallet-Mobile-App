@@ -128,12 +128,14 @@ class _AccountPageState extends State<AccountPage> {
                       horizontal: 1.0,
                     )),
                     InkWell(
+                      customBorder: StadiumBorder(),
+                      splashColor: Colors.black,
                       onTap: () async {
                         final source = await showImageSource(context);
                         if (source == null) return;
                         pickImage(source, context);
                       },
-                      child: user.imagePath != ''
+                      child: user.imagePath != '12'
                           ? Stack(
                               children: [
                                 ClipOval(
@@ -164,7 +166,8 @@ class _AccountPageState extends State<AccountPage> {
                           : const CircleAvatar(
                               radius: 45,
                               backgroundImage: AssetImage('lib/icons/user.png'),
-                              backgroundColor: Colors.lightGreen,
+                              backgroundColor:
+                                  Color.fromARGB(185, 130, 185, 68),
                               child: Align(
                                 alignment: Alignment.bottomRight,
                                 child: Icon(
