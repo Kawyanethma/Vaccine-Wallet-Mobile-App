@@ -13,36 +13,43 @@ class _MapsPageState extends State<MapsPage> {
   Set<Marker> markers = Set(); //markers for google map
   LatLng showLocation = LatLng(6.92781026181, 79.849936266);
 
-  void getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    showLocation = LatLng(position.latitude, position.longitude);
-  }
-
   @override
-  void initState() async {
-    getCurrentLocation();
-    markers.add(Marker(
-      //add marker on google map
-      markerId: MarkerId(showLocation.toString()),
-      position: showLocation, //position of marker
-      infoWindow: InfoWindow(
-        //popup info
-        title: 'My Custom Title ',
-        snippet: 'My Custom Subtitle',
-      ),
-      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
-    ));
-
+  void initState() {
     //you can add more markers here
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    getCurrentLocation();
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () async {
+                Position position = await _determinePosition();
+                mapController?.animateCamera(CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                        target: LatLng(position.latitude, position.longitude),
+                        zoom: 14)));
+                markers.add(Marker(
+                  //add marker on google map
+                  markerId: MarkerId(showLocation.toString()),
+                  position: LatLng(position.latitude,
+                      position.longitude), //position of marker
+                  infoWindow: InfoWindow(
+                    //popup info
+                    title: 'My Custom Title ',
+                    snippet: 'My Custom Subtitle',
+                  ),
+                  icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+                ));
+                setState(() {});
+              },
+              icon: Icon(
+                Icons.location_history,
+                color: Colors.black,
+              ))
+        ],
         leading: Padding(
           padding: const EdgeInsets.only(left: 20.0),
           child: Builder(builder: (context) {
@@ -116,5 +123,29 @@ class _MapsPageState extends State<MapsPage> {
         ),
       ),
     );
+  }
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+
+      if (permission == LocationPermission.denied) {
+        return Future.error("Location permission denied");
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error("Location permissions are permanetly denied");
+    }
+    Position position = await Geolocator.getCurrentPosition();
+    return position;
   }
 }
