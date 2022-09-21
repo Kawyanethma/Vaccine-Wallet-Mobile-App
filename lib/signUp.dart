@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   int currentStep = 0;
 
+  bool snapsnotExists = false;
   bool isPasswordVisible = true;
   bool isPasswordConfirmVisible = true;
 
@@ -67,13 +69,14 @@ class _SignUpPageState extends State<SignUpPage> {
             type: StepperType.horizontal,
             steps: getSteps(),
             currentStep: currentStep,
-            onStepContinue: () {
+            onStepContinue: () async {
               if (currentStep == 2) {
                 final isValidForm2 = formKey3.currentState!.validate();
                 if (isValidForm2) {
                   print('done');
                 }
               } else if (currentStep == 0) {
+                await readIDFromFireBase();
                 final isValidForm0 = formKey1.currentState!.validate();
                 if (isValidForm0) {
                   setState(() => currentStep += 1);
@@ -135,10 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
           title: Text('Account'),
           content: Container(
             padding: EdgeInsets.fromLTRB(1, 1, 1, 30),
-            child: Form(
-                key: formKey1,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: makeIDTextField()),
+            child: Form(key: formKey1, child: makeIDTextField()),
           ),
         ),
         Step(
@@ -147,10 +147,7 @@ class _SignUpPageState extends State<SignUpPage> {
           title: Text('Verification'),
           content: Container(
             padding: EdgeInsets.fromLTRB(1, 1, 1, 30),
-            child: Form(
-                key: formKey2,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: makePhoneTextField()),
+            child: Form(key: formKey2, child: makePhoneTextField()),
           ),
         ),
         Step(
@@ -162,7 +159,6 @@ class _SignUpPageState extends State<SignUpPage> {
             child: SingleChildScrollView(
                 child: Form(
               key: formKey3,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 children: [
                   makeFirstNameTextField(),
@@ -189,6 +185,8 @@ class _SignUpPageState extends State<SignUpPage> {
             return 'Wrong ID number';
           } else if (idController.text.isEmpty) {
             return 'Enter NIC';
+          } else if (!snapsnotExists) {
+            return 'ID not found !!';
           } else {
             return null;
           }
@@ -350,5 +348,21 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  Future readIDFromFireBase() async {
+    try {
+      final docUser =
+          FirebaseFirestore.instance.collection('users').doc(idController.text);
+      final snapshot = await docUser.get();
+      if (snapshot.exists) {
+        snapsnotExists = true;
+      } else {
+        snapsnotExists = false;
+      }
+    } on FirebaseException catch (e) {
+      print(e);
+      snapsnotExists = false;
+    }
   }
 }
