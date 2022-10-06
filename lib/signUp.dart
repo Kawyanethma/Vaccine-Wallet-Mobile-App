@@ -8,7 +8,10 @@ class SignUpPage extends StatefulWidget {
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
+enum ButtonState { init, loading, done }
+
 class _SignUpPageState extends State<SignUpPage> {
+  ButtonState state = ButtonState.init;
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
   final formKey3 = GlobalKey<FormState>();
@@ -73,10 +76,22 @@ class _SignUpPageState extends State<SignUpPage> {
               if (currentStep == 2) {
                 final isValidForm2 = formKey3.currentState!.validate();
                 if (isValidForm2) {
+                  final id = idController.text;
+                  final password = passwordController.text;
+                  final firstName = firstNameController.text;
+                  final lastName = lastNameController.text;
+                  final mobileNumber = phoneController.text;
+                  addUserToFirebase(
+                      id: id,
+                      password: password,
+                      firstName: firstName,
+                      lastName: lastName,
+                      mobileNumber: mobileNumber);
                   print('done');
+                  print(idController.text);
                 }
               } else if (currentStep == 0) {
-                await readIDFromFireBase();
+                !idController.text.isEmpty ? await readIDFromFireBase() : null;
                 final isValidForm0 = formKey1.currentState!.validate();
                 if (isValidForm0) {
                   setState(() => currentStep += 1);
@@ -116,11 +131,16 @@ class _SignUpPageState extends State<SignUpPage> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40)),
                               color: Color.fromARGB(255, 50, 50, 50),
-                              child: Text('Next',
-                                  style: TextStyle(
-                                      fontSize: 18,
+                              child: state == ButtonState.init
+                                  ? Text('Next',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500))
+                                  : Center(
+                                      child: CircularProgressIndicator(
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w500)),
+                                    )),
                               onPressed: details.onStepContinue))),
                 ],
               );
@@ -352,6 +372,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future readIDFromFireBase() async {
     try {
+      setState(() => state = ButtonState.loading);
+      print(state);
       final docUser =
           FirebaseFirestore.instance.collection('users').doc(idController.text);
       final snapshot = await docUser.get();
@@ -360,9 +382,30 @@ class _SignUpPageState extends State<SignUpPage> {
       } else {
         snapsnotExists = false;
       }
+      setState(() => state = ButtonState.init);
     } on FirebaseException catch (e) {
       print(e);
       snapsnotExists = false;
+      state = ButtonState.init;
     }
+  }
+
+  Future addUserToFirebase(
+      {required String id,
+      required String mobileNumber,
+      required String firstName,
+      required String lastName,
+      required String password}) async {
+    final docUser = FirebaseFirestore.instance.collection('users').doc(id);
+
+    final json = {
+      'log': true,
+      'firstName': firstName,
+      'lastName': lastName,
+      'mobile': mobileNumber,
+      'password': password,
+      'id': id
+    };
+    await docUser.set(json);
   }
 }

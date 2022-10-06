@@ -21,6 +21,8 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
   String Password = '';
   bool isPasswordVisble = true;
+  bool wrongPassowrd = false;
+  bool wrongUser = false;
 
   @override
   void initState() {
@@ -61,59 +63,59 @@ class _LoginPageState extends State<LoginPage> {
             height: MediaQuery.of(context).size.height,
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             child: SingleChildScrollView(
-              child: Column(children: [
-                Column(children: [
-                  Column(
-                    children: const [
-                      Text(
-                        'Login',
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        'Login to your vaccine wallet account',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Color.fromARGB(255, 81, 81, 81)),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 40),
-                ]),
-                Form(
+              child: Form(
                   key: formKeyLogin,
-                  child: Theme(
-                      data: Theme.of(context).copyWith(
-                          colorScheme: ColorScheme.light(
-                              primary: Color.fromARGB(255, 27, 110, 178))),
-                      child: makeIdTextField()),
-                ),
-                SizedBox(height: 30),
-                Theme(
-                    data: Theme.of(context).copyWith(
-                        colorScheme: ColorScheme.light(
-                            primary: Color.fromARGB(255, 27, 110, 178))),
-                    child: makePasswordTextField()),
-                SizedBox(height: 40),
-                Hero(
-                    transitionOnUserGestures: true,
-                    tag: 'login',
-                    child: AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.easeIn,
-                      width: state == ButtonState.init
-                          ? MediaQuery.of(context).size.width
-                          : 70,
-                      height: 60,
-                      onEnd: () => setState(() => isAnimating = !isAnimating),
-                      child: isStretched
-                          ? bulidButton()
-                          : bulidLoadingButton(isDone),
-                    )),
-              ]),
+                  child: Column(children: [
+                    Column(children: [
+                      Column(
+                        children: const [
+                          Text(
+                            'Login',
+                            style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(height: 20),
+                          Text(
+                            'Login to your vaccine wallet account',
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 81, 81, 81)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 40),
+                    ]),
+                    Theme(
+                        data: Theme.of(context).copyWith(
+                            colorScheme: ColorScheme.light(
+                                primary: Color.fromARGB(255, 27, 110, 178))),
+                        child: makeIdTextField()),
+                    SizedBox(height: 30),
+                    Theme(
+                        data: Theme.of(context).copyWith(
+                            colorScheme: ColorScheme.light(
+                                primary: Color.fromARGB(255, 27, 110, 178))),
+                        child: makePasswordTextField()),
+                    SizedBox(height: 40),
+                    Hero(
+                        transitionOnUserGestures: true,
+                        tag: 'login',
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
+                          width: state == ButtonState.init
+                              ? MediaQuery.of(context).size.width
+                              : 70,
+                          height: 60,
+                          onEnd: () =>
+                              setState(() => isAnimating = !isAnimating),
+                          child: isStretched
+                              ? bulidButton()
+                              : bulidLoadingButton(isDone),
+                        )),
+                  ])),
             ),
           ),
         ),
@@ -138,6 +140,8 @@ class _LoginPageState extends State<LoginPage> {
           return 'Wrong NIC number';
         } else if (idController.text.isEmpty) {
           return 'Enter NIC number';
+        } else if (wrongUser) {
+          return 'User not registered';
         } else {
           return null;
         }
@@ -145,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
       // autofocus: true,
       );
 
-  Widget makePasswordTextField() => TextField(
+  Widget makePasswordTextField() => TextFormField(
         controller: passwordController,
         decoration: InputDecoration(
           hintText: 'Enter your password',
@@ -171,6 +175,18 @@ class _LoginPageState extends State<LoginPage> {
                 ),
           border: UnderlineInputBorder(borderRadius: BorderRadius.circular(15)),
         ),
+        validator: (value) {
+          if (passwordController.text.isNotEmpty &&
+              idController.text.length < 10) {
+            return 'Wrong Password';
+          } else if (passwordController.text.isEmpty) {
+            return 'Enter Password';
+          } else if (wrongPassowrd) {
+            return 'Wrong Password';
+          } else {
+            return null;
+          }
+        },
         keyboardType: TextInputType.visiblePassword,
         textInputAction: TextInputAction.done,
         obscureText: isPasswordVisble,
@@ -209,11 +225,15 @@ class _LoginPageState extends State<LoginPage> {
       final snapshot = await docUser.get();
       firebaseUser user = firebaseUserPreferences.getfirebaseUser();
       if (snapshot.exists) {
+        setState(() => wrongUser = false);
+        formKeyLogin.currentState!.validate();
         await firebaseUserPreferences
             .setfirebaseUser(firebaseUser.fromJson(snapshot.data()!));
         user = firebaseUserPreferences.getfirebaseUser();
         print(user.password);
         if (passwordController.text.trim() == user.password) {
+          setState(() => wrongPassowrd = false);
+          formKeyLogin.currentState!.validate();
           setState(() => state = ButtonState.done);
           User userLocal = UserPreferences.getUser();
           userLocal = userLocal.copy(loginState: true);
@@ -222,10 +242,17 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.of(context).popUntil((route) => route.isFirst);
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MyApp()));
-        }else{
-           setState(() => state = ButtonState.init);
+        } else {
+          setState(() => wrongPassowrd = true);
+          formKeyLogin.currentState!.validate();
+          setState(() => state = ButtonState.init);
         }
+        formKeyLogin.currentState!.validate();
+      } else {
+        setState(() => state = ButtonState.init);
+        setState(() => wrongUser = true);
       }
+
       user = user.copy(password: '');
       firebaseUserPreferences.setfirebaseUser(user);
       print(user.password);

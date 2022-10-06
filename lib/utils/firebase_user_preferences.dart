@@ -8,7 +8,8 @@ class firebaseUserPreferences {
   static const _keyfirebaseUser = 'firebaseUser';
   static var myfirebaseUser = firebaseUser(
     password: '',
-    name: '',
+    firstName: '',
+    lastName: '',
     id: '',
     mobile: '',
     log: false,
@@ -35,14 +36,16 @@ class firebaseUserPreferences {
 
 class firebaseUser {
   String password;
-  String name;
+  String firstName;
+  String lastName;
   String id;
   String mobile;
   bool? log;
 
   firebaseUser({
     required this.password,
-    required this.name,
+    required this.firstName,
+    required this.lastName,
     required this.id,
     required this.mobile,
     required this.log,
@@ -50,14 +53,16 @@ class firebaseUser {
 
   firebaseUser copy({
     String? password,
-    String? name,
+    String? firstName,
+    String? lastName,
     String? id,
     String? mobile,
     bool? log,
   }) =>
       firebaseUser(
         password: password ?? this.password,
-        name: name ?? this.name,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
         id: id ?? this.id,
         mobile: mobile ?? this.mobile,
         log: log ?? this.log,
@@ -65,7 +70,8 @@ class firebaseUser {
 
   static firebaseUser fromJson(Map<String, dynamic> json) => firebaseUser(
         password: json['password'],
-        name: json['name'],
+        firstName: json['firstName'],
+        lastName: json['lastName'],
         id: json['id'],
         mobile: json['mobile'],
         log: json['log'],
@@ -73,7 +79,8 @@ class firebaseUser {
 
   Map<String, dynamic> toJson() => {
         'password': password,
-        'name': name,
+        'firstName': firstName,
+        'lastName': lastName,
         'id': id,
         'mobile': mobile,
         'log': log,
