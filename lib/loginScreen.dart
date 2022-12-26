@@ -237,6 +237,8 @@ class _LoginPageState extends State<LoginPage> {
           setState(() => state = ButtonState.done);
           User userLocal = UserPreferences.getUser();
           userLocal = userLocal.copy(loginState: true);
+          userLocal =
+              userLocal.copy(name: '${user.firstName} ${user.lastName}');
           UserPreferences.setUser(userLocal);
           print(userLocal.loginState);
           Navigator.of(context).popUntil((route) => route.isFirst);
@@ -258,6 +260,7 @@ class _LoginPageState extends State<LoginPage> {
       print(user.password);
     } on FirebaseException catch (e) {
       print(e);
+      showTextSnackBar(context, 'Check your connection');
       setState(() => state = ButtonState.init);
     }
   }
@@ -280,4 +283,27 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+void showTextSnackBar(BuildContext context, String text) {
+  final snackBar = SnackBar(
+    backgroundColor: Color.fromARGB(255, 106, 0, 0),
+    duration: Duration(seconds: 3),
+    content: Row(
+      children: [
+        Icon(
+          Icons.wifi_off_rounded,
+          color: Colors.white,
+        ),
+        SizedBox(
+          width: 25,
+        ),
+        Text(
+          text,
+          style: TextStyle(fontSize: 18),
+        ),
+      ],
+    ),
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

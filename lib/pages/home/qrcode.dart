@@ -141,7 +141,7 @@ class _QRPageState extends State<QRPage> {
                 ),
                 SizedBox(height: 15),
                 Text(
-                  'Show QR code to medical officer, then they can know about your vaccine deatils.\n*If QR code not clear tap on it to zoom it.',
+                  'Show QR code to medical officer, then they can know about your vaccine deatils.\n\n*If QR code not clear tap on it to zoom it.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,

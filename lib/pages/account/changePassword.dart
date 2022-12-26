@@ -138,7 +138,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       obscureText: isPasswordConfirmVisible,
       validator: (value) {
         if (value != null &&
-            (passwordConfirmController.text == passwordController.text)) {
+            (passwordConfirmController.text == newPasswordController.text)) {
           return null;
         } else {
           return 'Not match with password you entered';

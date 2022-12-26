@@ -20,6 +20,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final user = UserPreferences.getUser();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   const Text('', style: TextStyle(fontSize: 20)),
-                  const Text('W.M.K Walisundara',
+                  Text('${user.name}',
                       style: TextStyle(color: Colors.white, fontSize: 25)),
                   const Text('Age : 22',
                       style: TextStyle(color: Colors.white, fontSize: 15)),

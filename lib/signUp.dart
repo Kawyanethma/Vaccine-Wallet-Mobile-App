@@ -87,8 +87,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       firstName: firstName,
                       lastName: lastName,
                       mobileNumber: mobileNumber);
-                  print('done');
-                  print(idController.text);
                 }
               } else if (currentStep == 0) {
                 !idController.text.isEmpty ? await readIDFromFireBase() : null;
@@ -378,6 +376,7 @@ class _SignUpPageState extends State<SignUpPage> {
           FirebaseFirestore.instance.collection('users').doc(idController.text);
       final snapshot = await docUser.get();
       if (snapshot.exists) {
+        print('user exists');
         snapsnotExists = true;
       } else {
         snapsnotExists = false;
@@ -386,7 +385,8 @@ class _SignUpPageState extends State<SignUpPage> {
     } on FirebaseException catch (e) {
       print(e);
       snapsnotExists = false;
-      state = ButtonState.init;
+      print('user not exists');
+      setState(() => state = ButtonState.init);
     }
   }
 
@@ -396,8 +396,9 @@ class _SignUpPageState extends State<SignUpPage> {
       required String firstName,
       required String lastName,
       required String password}) async {
-    final docUser = FirebaseFirestore.instance.collection('users').doc(id);
-
+    final docUser =
+        FirebaseFirestore.instance.collection('users').doc(id);
+    print(id);
     final json = {
       'log': true,
       'firstName': firstName,

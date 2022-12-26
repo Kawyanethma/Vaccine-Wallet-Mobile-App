@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'package:gpsd/utils/firebase_user_preferences.dart';
 
 class VaccineHistroy extends StatefulWidget {
   const VaccineHistroy({Key? key}) : super(key: key);
@@ -8,70 +9,85 @@ class VaccineHistroy extends StatefulWidget {
 }
 
 class _VaccineHistroyState extends State<VaccineHistroy> {
+  final user = firebaseUserPreferences.getfirebaseUser();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           leading: Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Builder(builder: (context) {
-            return IconButton(
-              onPressed: () => Navigator.pop(context,true),
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-            );
-          }),
-        ),
+            padding: const EdgeInsets.only(left: 20.0),
+            child: Builder(builder: (context) {
+              return IconButton(
+                onPressed: () => Navigator.pop(context, true),
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                ),
+              );
+            }),
+          ),
           toolbarHeight: 80,
           elevation: 0,
           backgroundColor: Colors.grey[300],
         ),
         backgroundColor: Colors.grey[300],
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 5.0, vertical: 25.0),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          'Vaccine History',
-                          style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ]),
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
-                const Icon(
-                  Icons.vaccines,
-                  color: Colors.grey,
-                  size: 80,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  "Vaccine History",
-                  style: TextStyle(
-                      fontSize: 19,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-              ]),
-            ),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5.0, vertical: 25.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        'Vaccine History',
+                        style: TextStyle(
+                            fontSize: 30,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ]),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                  height: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.height,
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(user.id)
+                        .collection('vaccines')
+                        .snapshots(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else {
+                        return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            var data = snapshot.data!.docs[index].data()
+                                as Map<String, dynamic>;
+                            if (data['status'].toString().startsWith('done')) {
+                              return ListTile(
+                                title: Text('Name: ' + data['name']),
+                                subtitle: Text('Status: ' + data['status']),
+                                leading: CircleAvatar(
+                                    backgroundImage:
+                                        AssetImage('lib/icons/vaccinated.png')),
+                              );
+                            } else {
+                              return Container();
+                            }
+                          },
+                        );
+                      }
+                    }),
+                  )),
+            ]),
           ),
         ));
   }

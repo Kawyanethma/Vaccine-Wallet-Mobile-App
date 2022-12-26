@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreferences {
@@ -9,8 +8,8 @@ class UserPreferences {
   static var myUser = User(
     password: '123',
     imagePath: '12',
-    name: 'Kawyanethma Walisundara',
-    id: '20002314020123',
+    name: 'name',
+    id: '200012345678',
     mobile: '0701234567',
     isLocation: false,
     isNotifications: false,
