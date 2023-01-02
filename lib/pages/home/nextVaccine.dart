@@ -46,7 +46,7 @@ class _NextVaccineState extends State<NextVaccine> {
                         style: TextStyle(
                             fontSize: 30,
                             color: Colors.black,
-                            fontWeight: FontWeight.w400),
+                            fontWeight: FontWeight.w500),
                       ),
                     ]),
               ),
@@ -65,6 +65,11 @@ class _NextVaccineState extends State<NextVaccine> {
                     builder: ((context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.data!.docs
+                          .where((QueryDocumentSnapshot<Object?> element) =>
+                              element['status'].toString().contains('not yet'))
+                          .isEmpty) {
+                        return Center(child: Text('No data'));
                       } else {
                         return ListView.builder(
                           itemCount: snapshot.data!.docs.length,

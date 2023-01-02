@@ -181,7 +181,7 @@ class _QRPageState extends State<QRPage> {
                       height: 40,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
-                      color: Color.fromARGB(255, 20, 115, 174),
+                      color: Color.fromARGB(255, 174, 20, 20),
                       onPressed: (() {
                         Navigator.pop(context, true);
                       }),
@@ -192,7 +192,7 @@ class _QRPageState extends State<QRPage> {
                             'Close',
                             style: TextStyle(
                                 fontSize: 20,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.white),
                           ),
                         ],

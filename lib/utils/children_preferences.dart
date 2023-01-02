@@ -10,6 +10,7 @@ class ChildrenPreferences {
     name: 'test',
     id: '20002314020123',
     age: '9',
+    gender: 'male',
   );
 
   static Future init() async =>
@@ -33,33 +34,39 @@ class Children {
   String name;
   String id;
   String age;
+  String gender;
 
   Children({
     required this.name,
     required this.id,
     required this.age,
+    required this.gender
   });
 
   Children copy({
     String? name,
     String? id,
     String? age,
+    String? gender,
   }) =>
       Children(
         name: name ?? this.name,
         id: id ?? this.id,
         age: age ?? this.age,
+        gender: gender?? this.gender,
       );
 
   static Children fromJson(Map<String, dynamic> json) => Children(
         name: json['name'],
         id: json['id'],
         age: json['age'],
+        gender: json['gender'],
       );
 
   Map<String, dynamic> toJson() => {
         'name': name,
         'id': id,
         'age': age,
+        'gender': gender,
       };
 }

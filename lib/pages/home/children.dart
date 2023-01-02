@@ -4,6 +4,10 @@ import 'package:gpsd/pages/home/noChildren.dart';
 import 'package:gpsd/utils/children_preferences.dart';
 import 'package:gpsd/utils/firebase_user_preferences.dart';
 
+import '../../utils/homeButtons.dart';
+import 'childVaccineHistory.dart';
+import 'childNextVaccine.dart';
+
 class ChildrenPage extends StatefulWidget {
   const ChildrenPage({Key? key}) : super(key: key);
   @override
@@ -100,7 +104,10 @@ class _ChildrenPageState extends State<ChildrenPage> {
   Widget buildChildren(Children children) => Column(
         children: [
           InkWell(
-              onTap: () {},
+              onTap: () {
+                showChildrenSheet(
+                    context, children.name, children.gender, children.id);
+              },
               customBorder: StadiumBorder(),
               child: Ink(
                 decoration: BoxDecoration(
@@ -122,7 +129,10 @@ class _ChildrenPageState extends State<ChildrenPage> {
                   padding: EdgeInsets.all(10),
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundImage: AssetImage('lib/icons/girl.png'),
+                      backgroundImage:
+                          children.gender.toString().contains('female')
+                              ? AssetImage('lib/icons/girl.png')
+                              : AssetImage('lib/icons/boy.png'),
                     ),
                     title: Text(
                       children.name,
@@ -145,4 +155,84 @@ class _ChildrenPageState extends State<ChildrenPage> {
           )
         ],
       );
+
+  Future showChildrenSheet(
+      BuildContext context, String childName, String gender, String id) {
+    return showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        isScrollControlled: true,
+        isDismissible: false,
+        builder: (context) => Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 30),
+                  CircleAvatar(
+                    radius: 35,
+                    backgroundImage: gender.toString().contains('female')
+                        ? AssetImage('lib/icons/girl.png')
+                        : AssetImage('lib/icons/boy.png'),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    childName,
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Color.fromARGB(221, 23, 59, 170),
+                        fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Homebuttons(
+                    iconImagePath1: 'lib/icons/vaccination.png',
+                    buttonText: 'Vaccine Histroy',
+                    page: ChildVaccineHistroy(
+                      childId: id,
+                      childGender: gender,
+                      childName: childName,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Homebuttons(
+                    iconImagePath1: 'lib/icons/vaccine.png',
+                    buttonText: 'Next Vaccines',
+                    page: ChildNextVaccine(
+                        childName: childName, childGender: gender, childId: id),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 80, vertical: 20),
+                    child: MaterialButton(
+                      height: 45,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      color: Color.fromARGB(255, 174, 25, 20),
+                      onPressed: (() {
+                        Navigator.pop(context, true);
+                      }),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Close',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ));
+  }
 }

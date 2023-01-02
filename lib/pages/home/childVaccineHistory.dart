@@ -2,13 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gpsd/utils/firebase_user_preferences.dart';
 
-class VaccineHistroy extends StatefulWidget {
-  const VaccineHistroy({Key? key}) : super(key: key);
+class ChildVaccineHistroy extends StatefulWidget {
+  final String childName;
+  final String childGender;
+  final String childId;
+  const ChildVaccineHistroy({
+    Key? key,
+    required this.childName,
+    required this.childGender,
+    required this.childId,
+  }) : super(key: key);
   @override
-  State<VaccineHistroy> createState() => _VaccineHistroyState();
+  State<ChildVaccineHistroy> createState() => _ChildVaccineHistroyState();
 }
 
-class _VaccineHistroyState extends State<VaccineHistroy> {
+class _ChildVaccineHistroyState extends State<ChildVaccineHistroy> {
   final user = firebaseUserPreferences.getfirebaseUser();
   @override
   Widget build(BuildContext context) {
@@ -35,23 +43,39 @@ class _VaccineHistroyState extends State<VaccineHistroy> {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 5.0, vertical: 25.0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        'Vaccine History',
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ]),
+              CircleAvatar(
+                radius: 25,
+                backgroundImage:
+                    widget.childGender.toString().contains('female')
+                        ? AssetImage('lib/icons/girl.png')
+                        : AssetImage('lib/icons/boy.png'),
               ),
               SizedBox(
-                height: 20,
+                height: 5,
+              ),
+              Text(
+                widget.childName,
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Color.fromARGB(221, 23, 59, 170),
+                    fontWeight: FontWeight.w600),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Text(
+                    'Vaccine History',
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Color.fromARGB(221, 23, 59, 170),
+                        fontWeight: FontWeight.w500),
+                  ),
+                ]),
+              ),
+              SizedBox(
+                height: 10,
               ),
               Container(
                   height: MediaQuery.of(context).size.width,
@@ -60,6 +84,8 @@ class _VaccineHistroyState extends State<VaccineHistroy> {
                     stream: FirebaseFirestore.instance
                         .collection('users')
                         .doc(user.id)
+                        .collection('children')
+                        .doc(widget.childId)
                         .collection('vaccines')
                         .snapshots(),
                     builder: ((context, snapshot) {
