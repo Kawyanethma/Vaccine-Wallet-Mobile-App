@@ -9,7 +9,7 @@ class UserPreferences {
     password: '123',
     imagePath: '12',
     name: 'name',
-    id: '200012345678',
+    id: '',
     mobile: '0701234567',
     isLocation: false,
     isNotifications: false,

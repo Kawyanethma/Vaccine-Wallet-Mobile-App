@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:gpsd/utils/user_preferences.dart';
@@ -18,6 +19,7 @@ class _ChangeMobileState extends State<ChangeMobile> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   bool isPasswordVisible = true;
+  bool wrongPassowrd = false;
 
   @override
   void initState() {
@@ -143,17 +145,29 @@ class _ChangeMobileState extends State<ChangeMobile> {
                 fontWeight: FontWeight.w500)),
       ),
       onPressed: () async {
-        print(state.toString());
-        if (formKeyChangeMobile.currentState!.validate()) {
-          setState(() => state = ButtonState.loading);
-          await Future.delayed(Duration(seconds: 2));
-          setState(() => state = ButtonState.done);
-          await Future.delayed(Duration(seconds: 1));
-          setState(() {
-            user.mobile = phoneController.text;
+        print(user.password);
+        if (passwordController.text.trim() == user.password) {
+          setState(() => wrongPassowrd = false);
+          if (formKeyChangeMobile.currentState!.validate()) {
+            setState(() => state = ButtonState.loading);
+            await Future.delayed(Duration(seconds: 2));
+            final docUser =
+                FirebaseFirestore.instance.collection('users').doc(user.id);
+            docUser.update({'mobile': '${phoneController.text.trim()}'});
+            user = user.copy(mobile: '${phoneController.text.trim()}');
             UserPreferences.setUser(user);
-          });
-          // databse coonnec}tion
+            setState(() => state = ButtonState.done);
+            showTextSnackBar(context, 'Mobile changed successfully', true);
+            await Future.delayed(Duration(seconds: 2));
+            Navigator.pop(context, true);
+          } else {
+            showTextSnackBar(
+                context, 'Check mobile number. Try agian !', false);
+          }
+        } else {
+          setState(() => wrongPassowrd = true);
+          formKeyChangeMobile.currentState!.validate();
+          showTextSnackBar(context, 'Wrong Password. Try agian !', false);
         }
         ;
       });
@@ -230,11 +244,38 @@ class _ChangeMobileState extends State<ChangeMobile> {
         textInputAction: TextInputAction.done,
         obscureText: isPasswordVisible,
         validator: (value) {
-          if (value != null && value.length <= 6) {
-            return 'Password should be more than 6 charecters ';
+          if (passwordController.text.isEmpty) {
+            return 'Enter Password';
+          } else if ((value != null && value.length <= 6) || wrongPassowrd) {
+            return 'Wrong Password';
           } else {
             return null;
           }
         },
       );
+}
+
+void showTextSnackBar(BuildContext context, String text, bool color) {
+  final snackBar = SnackBar(
+    backgroundColor: color
+        ? Color.fromARGB(255, 19, 106, 0)
+        : Color.fromARGB(255, 106, 0, 0),
+    duration: Duration(seconds: 3),
+    content: Row(
+      children: [
+        Icon(
+          Icons.info_outlined,
+          color: Colors.white,
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        Text(
+          text,
+          style: TextStyle(fontSize: 18),
+        ),
+      ],
+    ),
+  );
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

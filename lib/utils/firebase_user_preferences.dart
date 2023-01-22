@@ -9,9 +9,11 @@ class firebaseUserPreferences {
   static var myfirebaseUser = firebaseUser(
     password: '',
     firstName: '',
+    name: '',
     lastName: '',
     id: '',
     mobile: '',
+    gender: '',
     log: false,
   );
 
@@ -37,52 +39,65 @@ class firebaseUserPreferences {
 class firebaseUser {
   String password;
   String firstName;
+  String name;
   String lastName;
   String id;
   String mobile;
+  String gender;
   bool? log;
+
 
   firebaseUser({
     required this.password,
     required this.firstName,
     required this.lastName,
+    required this.name,
     required this.id,
     required this.mobile,
+    required this.gender,
     required this.log,
   });
 
   firebaseUser copy({
     String? password,
     String? firstName,
+    String? name,
     String? lastName,
     String? id,
     String? mobile,
+    String? gender,
     bool? log,
   }) =>
       firebaseUser(
         password: password ?? this.password,
         firstName: firstName ?? this.firstName,
+        name: name ?? this.name,
         lastName: lastName ?? this.lastName,
         id: id ?? this.id,
         mobile: mobile ?? this.mobile,
+        gender: gender?? this.gender,
         log: log ?? this.log,
       );
 
   static firebaseUser fromJson(Map<String, dynamic> json) => firebaseUser(
         password: json['password'],
         firstName: json['firstName'],
+        name: json['name'],
         lastName: json['lastName'],
         id: json['id'],
         mobile: json['mobile'],
+        gender: json['gender'],
         log: json['log'],
       );
 
   Map<String, dynamic> toJson() => {
         'password': password,
         'firstName': firstName,
+        'name': name,
         'lastName': lastName,
         'id': id,
         'mobile': mobile,
+        'gender':gender,
         'log': log,
       };
 }

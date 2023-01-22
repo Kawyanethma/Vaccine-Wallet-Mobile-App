@@ -19,6 +19,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  final userDetails = UserPreferences.getUser();
   late User user;
 
   Future pickImage(ImageSource source, BuildContext context) async {
@@ -181,7 +182,7 @@ class _AccountPageState extends State<AccountPage> {
                     const SizedBox(
                       height: 15,
                     ),
-                    const Text('Kawyanethma',
+                    Text('${userDetails.name}',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 19,
@@ -189,7 +190,7 @@ class _AccountPageState extends State<AccountPage> {
                     const SizedBox(
                       height: 7,
                     ),
-                    const Text('ID Number: 200*********',
+                    Text('ID Number: ${userDetails.id}',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,

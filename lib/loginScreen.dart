@@ -224,7 +224,7 @@ class _LoginPageState extends State<LoginPage> {
           FirebaseFirestore.instance.collection('users').doc(idController.text);
       final snapshot = await docUser.get();
       firebaseUser user = firebaseUserPreferences.getfirebaseUser();
-      if (snapshot.exists) {
+      if (snapshot.exists && snapshot.data()!.containsKey("password")) {
         setState(() => wrongUser = false);
         formKeyLogin.currentState!.validate();
         await firebaseUserPreferences
@@ -237,8 +237,11 @@ class _LoginPageState extends State<LoginPage> {
           setState(() => state = ButtonState.done);
           User userLocal = UserPreferences.getUser();
           userLocal = userLocal.copy(loginState: true);
+          userLocal = userLocal.copy(password: '${user.password}');
           userLocal =
               userLocal.copy(name: '${user.firstName} ${user.lastName}');
+          userLocal = userLocal.copy(id: '${user.id}');
+          userLocal = userLocal.copy(mobile: '${user.mobile}');
           UserPreferences.setUser(userLocal);
           print(userLocal.loginState);
           Navigator.of(context).popUntil((route) => route.isFirst);
