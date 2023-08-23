@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:gpsd/pages/account/account.dart';
 import 'package:gpsd/utils/user_preferences.dart';
 
 class ChangePassword extends StatefulWidget {
