@@ -1,39 +1,40 @@
+// replace your google-services.json with this file
 {
   "project_info": {
-    "project_number": "690462553077",
-    "project_id": "gpsd-3b169",
-    "storage_bucket": "gpsd-3b169.appspot.com"
+    "project_number": "YOUR_PROJECT_NUMBER",
+    "project_id": "YOUR_PROJECT_ID",
+    "storage_bucket": "YOUR_STORAGE_BUCKET"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:690462553077:android:e8edcd6b0e8011d1c266bc",
+        "mobilesdk_app_id": "YOUR_MOBILE_SDK_APP_ID",
         "android_client_info": {
-          "package_name": "com.example.gpsd"
+          "package_name": "YOUR_PACKAGE_NAME"
         }
       },
       "oauth_client": [
         {
-          "client_id": "690462553077-un1akq0atl4uj5714c625o3j8rbaaumi.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "YOUR_CLIENT_ID",
+          "client_type": "CLIENT_TYPE"
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAFgUhE0UCmESSbZSB0CRbkugvUSdwaB58"
+          "current_key": "YOUR_CURRENT_KEY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "690462553077-un1akq0atl4uj5714c625o3j8rbaaumi.apps.googleusercontent.com",
-              "client_type": 3
+              "client_id": "YOUR_CLIENT_ID",
+              "client_type": "YOUR_CLIENT_TYPE"
             }
           ]
         }
       }
     }
   ],
-  "configuration_version": "1"
+  "configuration_version": "VERSION"
 }
