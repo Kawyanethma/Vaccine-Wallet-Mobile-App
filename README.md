@@ -27,10 +27,8 @@ This project contain with,
 - JS | HTML | CSS - These are used to design the Frontend of the “Vaccine Wallet” admin web interface.
 - Firebase - Firebase is used to build up the database of the “Vaccine Wallet”.
 
-![image](https://github.com/Kawyanethma/2ndYearProject/assets/92635894/5d872042-f234-4e1e-83a2-97f991fae984)
-
 <p align="center">
-<img src="https://github.com/Kawyanethma/2ndYearProject/assets/92635894/5d872042-f234-4e1e-83a2-97f991fae984" width='500px' alt="logo">
+<img src="https://github.com/Kawyanethma/2ndYearProject/assets/92635894/5d872042-f234-4e1e-83a2-97f991fae984" width='700px' alt="logo">
 <p/>
 
 ## Interface Design
