@@ -7,8 +7,8 @@
 **“Vaccine Wallet”** is a fully computerized vaccination details system to replace the vaccination card system in Sri Lanka. “Vaccine Wallet” has a simple user interface for registration and usage of the system. This enhanced online vaccination system will completely bring down the forgetting of vaccination details and time period.** “Vaccine Wallet”** also check the availability of vaccines from the hospitals and allows the user to find a location for the vaccination process.
 
 This project contain with,
-1. Flutter App - For public users (This repo) 📱
-2. Dashboard - For hospital staff (Click to go to the repo) 💻
+1. **Flutter App** - For public users (This repo) 📱
+2. [**Dashboard** - For hospital staff (Click to go to the repo)](https://github.com/sanduweera/Dashboard) 💻
 
 # Flutter App overview 📱
 <p align="center">
@@ -23,12 +23,12 @@ This project contain with,
 <p/>
 
 ## Technology
-- Flutter - Flutter is used to design the frontend of the “Vaccine Wallet” mobile app (iOS and Android).
-- JS | HTML | CSS - These are used to design the Frontend of the “Vaccine Wallet” admin web interface.
-- Firebase - Firebase is used to build up the database of the “Vaccine Wallet”.
+- **Flutter** - Flutter is used to design the frontend of the “Vaccine Wallet” mobile app (iOS and Android).
+- **JS | HTML | CSS** - These are used to design the Frontend of the “Vaccine Wallet” admin web interface.
+- **Firebase** - Firebase is used to build up the database of the “Vaccine Wallet”.
 
 <p align="center">
-<img src="https://github.com/Kawyanethma/2ndYearProject/assets/92635894/5d872042-f234-4e1e-83a2-97f991fae984" width='700px' alt="logo">
+<img src="https://github.com/Kawyanethma/2ndYearProject/assets/92635894/4a6b4816-8096-4956-afee-cc68f7fe5e0a" width='500px' alt="logo">
 <p/>
 
 ## Interface Design
