@@ -9,7 +9,8 @@
 
 This project contain with,
 1. **Flutter App** - For public users (This repo) 📱
-2. [**Dashboard** - For hospital staff (Click to go to the repo)](https://github.com/sanduweera/Dashboard) 💻
+   (Mobile App Design and implementation by me, You can contact by my email)
+3. [**Dashboard** - For hospital staff (Click to go to the repo)](https://github.com/sanduweera/Dashboard) 💻
 
 # Flutter App overview 📱
 <p align="center">
