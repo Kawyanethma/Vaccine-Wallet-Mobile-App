@@ -5,7 +5,6 @@
 # Vaccine Wallet
 
 **“Vaccine Wallet”** is a fully computerized vaccination details system to replace the vaccination card system in Sri Lanka. “Vaccine Wallet” has a simple user interface for registration and usage of the system. This enhanced online vaccination system will completely bring down the forgetting of vaccination details and time period.**“Vaccine Wallet”** also check the availability of vaccines from the hospitals and allows the user to find a location for the vaccination process.
-(Mobile App Design and implementation by me, You can contact by my email)
 
 This project contain with,
 1. **Flutter App** - For public users (This repo) 📱
